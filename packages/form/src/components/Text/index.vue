@@ -25,6 +25,9 @@
     formConfig: getFormConfig("Text", [
       { fieldName: "default", component: "Text" },
       { fieldName: "placeholder", component: "Text" },
+      { fieldName: 'maxLength', component: 'InputNumber' },
+      { fieldName: 'minLength', component: 'InputNumber' },
+      { fieldName: 'state', component: 'Radio' },
     ]),
     actionType: ["onChange", "onFocus", "onBlur"],
     props: {

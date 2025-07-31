@@ -29,6 +29,7 @@
     formConfig: getFormConfig("Selected", [
       { fieldName: "placeholder", component: "Text" },
       { fieldName: "itemConfig", component: "KeyValueConfig" },
+      { fieldName: "state", component: "Radio" },
     ]),
     props: {
       ...fieldProps,

@@ -26,6 +26,8 @@
       { fieldName: "default", component: "InputNumber" },
       { fieldName: "type", component: "Radio" },
       { fieldName: "size", component: "Radio" },
+      { fieldName: "precision", component: "InputNumber" },
+      { fieldName: "state", component: "Radio" },
     ]),
     props: {
       ...fieldProps,

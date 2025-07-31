@@ -124,20 +124,20 @@ const globalFormList = [
       },
     },
   },
-  {
-    ControlType: "FormAction",
-    nameCn: "文本框",
-    data: {
-      fieldName: "action",
-      label: "动作面板",
-      tip: "",
-      placeholder: "",
-      showRule: "{}",
-      required: false,
-      rule: "[]",
-      default: [],
-    },
-  },
+  // {
+  //   ControlType: "FormAction",
+  //   nameCn: "文本框",
+  //   data: {
+  //     fieldName: "action",
+  //     label: "动作面板",
+  //     tip: "",
+  //     placeholder: "",
+  //     showRule: "{}",
+  //     required: false,
+  //     rule: "[]",
+  //     default: [],
+  //   },
+  // },
 ];
 
 export { globalFormList };
