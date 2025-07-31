@@ -26,7 +26,11 @@
     ControlType: "Radio", // 必须与文件名匹配
     nameCn: "单选框",
     icon: "icon-danxuankuang",
-    formConfig: getFormConfig("Radio", [{ fieldName: "itemConfig", component: "KeyValueConfig" }]),
+    formConfig: getFormConfig("Radio", [
+      { fieldName: "itemConfig", component: "KeyValueConfig" },
+      { fieldName: "arrangeMent", component: "Radio" },
+      { fieldName: "state", component: "Radio" },
+    ]),
     props: {
       ...fieldProps,
     },

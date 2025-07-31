@@ -129,30 +129,30 @@ const afterBaseFormConfig: () => FormConfig[] = function () {
         default: "[]",
       },
     },
-    {
-      ControlType: "ShowRule",
-      data: {
-        fieldName: "showRule",
-        tip: "",
-        label: "显示条件",
-        showRule: "{}",
-        required: false,
-        rule: "[]",
-        default: "[]",
-      },
-    },
-    {
-      ControlType: "Action",
-      data: {
-        fieldName: "action",
-        tip: "",
-        label: "动作面板",
-        showRule: "{}",
-        required: false,
-        rule: "[]",
-        default: "{}",
-      },
-    },
+    // {
+    //   ControlType: "ShowRule",
+    //   data: {
+    //     fieldName: "showRule",
+    //     tip: "",
+    //     label: "显示条件",
+    //     showRule: "{}",
+    //     required: false,
+    //     rule: "[]",
+    //     default: "[]",
+    //   },
+    // },
+    // {
+    //   ControlType: "Action",
+    //   data: {
+    //     fieldName: "action",
+    //     tip: "",
+    //     label: "动作面板",
+    //     showRule: "{}",
+    //     required: false,
+    //     rule: "[]",
+    //     default: "{}",
+    //   },
+    // },
   ];
 };
 /**
@@ -168,6 +168,9 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: "",
+    maxLength: 100,
+    minLength: 0,
+    state: "normal", // 状态：normal, disabled, readonly
   },
   Info: {
     fieldName: "",
@@ -191,6 +194,10 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: "",
+    maxLength: 100,
+    minLength: 0,
+    state: "normal",
+    autoHeight: false, // 自适应高度
   },
   Switch: {
     fieldName: "",
@@ -201,6 +208,7 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: false,
+    state: "normal",
   },
   Slider: {
     fieldName: "",
@@ -297,6 +305,7 @@ const fieldsMap: any = {
     showRule: "{}",
     required: false,
     rule: "[]",
+    state: "normal", // 状态：normal, disabled, readonly
     itemConfig: {
       value: "选项1",
       items: [
@@ -323,6 +332,7 @@ const fieldsMap: any = {
     showRule: "{}",
     required: false,
     rule: "[]",
+    state: "normal", // 状态：normal, disabled, readonly
     itemConfig: {
       value: ["选项1"],
       items: [
@@ -350,6 +360,7 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: "",
+    state: "normal", // 状态：normal, disabled, readonly
   },
   Radio: {
     fieldName: "",
@@ -360,6 +371,8 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: false,
+    arrangeMent: 'horizontal',
+    state: "normal", // 状态：normal, disabled, readonly
     itemConfig: {
       value: "选项1",
       id: 1,
@@ -418,6 +431,8 @@ const fieldsMap: any = {
     default: 0,
     type: "1",
     size: "large",
+    precision: 0, // 精度
+    state: "normal",
   },
   Divider: {
     fieldName: "",
@@ -438,6 +453,8 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: "1",
+    format: "YYYY-MM-DD", // 日期格式
+    state: "normal",
   },
   Date: {
     fieldName: "",
@@ -448,6 +465,7 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: "",
+    state: "normal",
   },
   ColorSelect: {
     fieldName: "",
@@ -468,6 +486,8 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: false,
+    state: "normal",
+    arrangeMent: 'horizontal', // 布局方式：horizontal, vertical
     itemConfig: {
       value: ["选项1"],
       items: [
@@ -487,7 +507,7 @@ const fieldsMap: any = {
     },
   },
 };
-type fieldMap = "default" | "placeholder" | "min" | "max" | "itemConfig" | "type" | "columns" | "infotype" | "effect" | "size" | "color" | "dividerColor" | "InputNumber" | "multiple" | "gutter";
+type fieldMap = "default" | "placeholder" | "min" | "max" | "itemConfig" | "type" | "columns" | "infotype" | "effect" | "size" | "color" | "dividerColor" | "InputNumber" | "multiple" | "gutter" | "minLength" | "maxLength" | "state" | "autoHeight" | "format" | "precision" | "arrangeMent";
 
 type morenFields = Partial<Record<fieldMap, FormConfig>>;
 
@@ -515,6 +535,118 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         showRule: "{}",
         required: false,
         rule: "[]",
+      },
+    },
+    precision: {
+      ControlType: "InputNumber",
+      data: {
+        fieldName: "precision",
+        tip: "",
+        label: "精度",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        default: 0,
+      },
+    },
+    maxLength: {
+      ControlType: "InputNumber",
+      data: {
+        fieldName: "maxLength",
+        tip: "",
+        label: "最大输入长度",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        default: 100,
+      },
+    },
+    minLength: {
+      ControlType: "InputNumber",
+      data: {
+        fieldName: "minLength",
+        tip: "",
+        label: "最小输入长度",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        default: 0,
+      },
+    },
+    state: {
+      ControlType: "Radio",
+      data: {
+        fieldName: "state",
+        tip: "",
+        label: "状态",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        itemConfig: {
+          value: "normal",
+          items: [
+            { label: "正常", value: "normal" },
+            { label: "禁用", value: "disabled" },
+            { label: "只读", value: "readonly" },
+          ],
+        },
+      },
+    },
+    arrangeMent: {
+      ControlType: "Radio",
+      data: {
+        fieldName: "arrangeMent",
+        tip: "",
+        label: "排列方式",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        itemConfig: {
+          value: "normal",
+          items: [
+            { label: "水平", value: "horizontal" },
+            { label: "垂直", value: "vertical" },
+          ],
+        },
+      },
+    },
+    autoHeight: {
+      ControlType: "Switch",
+      data: {
+        fieldName: "autoHeight",
+        tip: "",
+        label: "自适应高度",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+      },
+    },
+    format: {
+      ControlType: "Selected",
+      data: {
+        fieldName: "format",
+        tip: "",
+        label: "日期格式",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        itemConfig: {
+          value: "YYYY-MM-DD",
+          items: [
+            { label: "年", value: "YYYY" },
+            { label: "年月", value: "YYYY-MM" },
+            { label: "年月日", value: "YYYY-MM-DD" },
+            { label: "年月日时", value: "YYYY-MM-DD HH" },
+            { label: "年月日时分", value: "YYYY-MM-DD HH:mm" },
+            { label: "年月日时分秒", value: "YYYY-MM-DD HH:mm:ss" },
+          ],
+        },
       },
     },
     multiple: {

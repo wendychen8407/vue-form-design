@@ -29,6 +29,7 @@
     formConfig: getFormConfig("Selecteds", [
       { fieldName: "placeholder", component: "Text" },
       { fieldName: "itemConfig", component: "KeyValueConfigMult" },
+      { fieldName: "state", component: "Radio" },
     ]),
     actionType: ["onChange", "onFocus", "onBlur"],
     props: {

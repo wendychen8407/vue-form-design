@@ -106,6 +106,7 @@ export default defineComponent({
         previewDialog.value.close();
       } else {
         previewDialog.value.init("表单预览", "icon-biaodan");
+        previewDialog.value.show();
         previewDialog.value.isFullScreen = true;
       }
     });

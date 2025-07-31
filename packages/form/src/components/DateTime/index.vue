@@ -25,6 +25,8 @@
     formConfig: getFormConfig("DateTime", [
       { fieldName: "default", component: "DateTime" },
       { fieldName: "placeholder", component: "Text" },
+      { fieldName: "format", component: "Selected" },
+      { fieldName: "state", component: "Radio" },
     ]),
     actionType: ["onChange"],
     props: {

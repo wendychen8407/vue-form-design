@@ -23,7 +23,7 @@
     ControlType: "RichText", // 必须与文件名匹配
     nameCn: "富文本",
     icon: "icon-textEdit",
-    formConfig: getFormConfig("RichText"),
+    formConfig: getFormConfig("RichText", [{ fieldName: "state", component: "Radio" }]),
     props: {
       ...fieldProps,
     },

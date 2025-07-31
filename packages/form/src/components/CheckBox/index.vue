@@ -26,7 +26,11 @@
     ControlType: "CheckBox", // 必须与文件名匹配
     nameCn: "复选框",
     icon: "icon-fuxuankuang_xuanzhong",
-    formConfig: getFormConfig("CheckBox", [{ fieldName: "itemConfig", component: "KeyValueConfigMult" }]),
+    formConfig: getFormConfig("CheckBox", [
+      { fieldName: "itemConfig", component: "KeyValueConfigMult" }, 
+      { fieldName: "arrangeMent", component: "Radio" },
+      { fieldName: "state", component: "Radio" },
+    ]),
     props: {
       ...fieldProps,
     },
