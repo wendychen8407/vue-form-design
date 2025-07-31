@@ -1,53 +1,23 @@
 <template>
-  <teleport to="body">
-    <Transition name="fade">
-      <div class="MyDialogFrame" v-if="isshow || showDialog">
-        <div
-          class="MyDialogBody"
-          :class="[{ fullscreen: isFullScreen }, dialogclass]"
-          :style="`width: ${newWidth}`"
-        >
-          <div
-            class="pageContent"
-            style="
-              height: 100%;
-              padding: 0;
-              overflow: hidden;
-              background-color: transparent;
-            "
-          >
-            <el-container class="my-pageContainer">
-              <el-header class="my-pageHeader" style="height: 45px">
-                <div class="my-icon">
-                  <em class="iconfontui" :class="icon"></em>
-                </div>
-                <div class="my-title">{{ title }}</div>
-                <div class="my-toolbar">
-                  <el-button
-                    class="my-toolbtn"
-                    @click="isFullScreen = !isFullScreen"
-                  >
-                    <em
-                      class="iconfontui icon"
-                      :class="{
-                        'icon-suoxiao1': isFullScreen,
-                        'icon-quanping': !isFullScreen,
-                      }"
-                    ></em>
-                  </el-button>
-                  <el-button class="my-toolbtn" @click="close">
-                    <em class="iconfontui icon-guanbi"></em>
-                  </el-button>
-                </div>
-              </el-header>
-              <slot></slot>
-            </el-container>
-          </div>
+  <el-dialog
+    v-model="isshow"
+    :custom-class="['MyDialogBody', dialogclass, { fullscreen: isFullScreen }]"
+    :width="newWidth"
+    :append-to-body="true"
+    :close-on-click-modal="false"
+    :destroy-on-close="true"
+    @close="close"
+  >
+    <template #title>
+      <div class="my-pageHeader">
+        <div class="my-icon">
+          <em class="iconfontui" :class="icon"></em>
         </div>
-        <div class="myDialogMask"></div>
+        <div class="my-title">{{ title }}</div>
       </div>
-    </Transition>
-  </teleport>
+    </template>
+    <slot></slot>
+  </el-dialog>
 </template>
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
@@ -68,7 +38,7 @@ export default defineComponent({
       if (typeof props.width == "number") {
         return props.width + "px";
       } else {
-        return props;
+        return props.width || "50%";
       }
     });
     return {
@@ -93,3 +63,15 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.MyDialogBody {
+  position: relative;
+}
+.fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0;
+  padding: 0;
+}
+</style>
