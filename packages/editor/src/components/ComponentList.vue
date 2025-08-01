@@ -23,8 +23,8 @@
         >
           <div class="form-item">
             <span class="iconfontui" :class="element.icon"></span>
+            <div class="item-text">{{ element.nameCn }}</div>
           </div>
-          <div class="item-text">{{ element.nameCn }}</div>
         </div>
       </template>
     </draggable>
@@ -44,8 +44,8 @@
         >
           <div class="form-item">
             <span class="iconfontui" :class="element.icon"></span>
+            <div class="item-text">{{ element.nameCn }}</div>
           </div>
-          <div class="item-text">{{ element.nameCn }}</div>
         </div>
       </template>
     </draggable>
