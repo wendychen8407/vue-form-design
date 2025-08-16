@@ -5,7 +5,7 @@
       @input="onUpdateValue($event.target.innerText)"
       placeholder="json导入"
       mode="text/json"
-      :style="{ height: '400px' }"
+      :style="{ height: '400px', 'margin-bottom': '16px' }"
       :extensions="extensions"
     />
   </div>
@@ -43,3 +43,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+.cm-gutters.cm-gutters-before {
+  background: transparent;
+}
+</style>

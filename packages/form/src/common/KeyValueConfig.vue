@@ -28,10 +28,10 @@
         </div>
         <div class="keyValueControl">
           <div class="add" @click="addItem(index)">
-            <i class="iconfontui icon-zengjia"></i>
+            <el-icon :size="12" style="color: #fff"><Plus /></el-icon>
           </div>
           <div class="remove" @click="removeItem(index)">
-            <i class="iconfontui icon-shanchu"></i>
+            <el-icon :size="12" style="color: #fff"><SemiSelect /></el-icon>
           </div>
           <div class="top" @click="handleTop(index)">
             <i class="iconfontui icon-shangyi"></i>
@@ -46,6 +46,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from "vue";
+  import { Plus, SemiSelect } from '@element-plus/icons-vue';
   import { getFormConfig } from "../utils/fieldConfig";
   import fieldProps from "../utils/fieldProps";
   export default defineComponent({

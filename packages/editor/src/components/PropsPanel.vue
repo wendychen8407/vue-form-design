@@ -30,7 +30,7 @@
                 :is="item.ControlType"
                 :data="curControl.data"
                 :item="item"
-                :size="globalDatas.size"
+                size="default"
                 :labelWidth="globalDatas.labelWidth"
                 :labelalign="globalDatas.labelalign"
                 v-if="
