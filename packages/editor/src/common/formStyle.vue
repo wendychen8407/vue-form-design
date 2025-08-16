@@ -168,3 +168,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+.cm-gutters.cm-gutters-before {
+  background: #133F63;
+}
+</style>

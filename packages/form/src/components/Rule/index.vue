@@ -362,4 +362,7 @@ export default defineComponent({
     align-self: flex-start;
   }
 }
+.cm-gutters.cm-gutters-before {
+  background: #133F63;
+}
 </style>
