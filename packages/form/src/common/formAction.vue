@@ -87,13 +87,13 @@
               <el-main class="event-script-main">
                 <el-container class="is-vertical">
                   <header class="action-header event-script-main-header">
-                    <el-button type="primary" @click="onConfirm" size="small"
+                    <el-button type="primary" @click="onConfirm" size="default"
                       >确定</el-button
                     >
-                    <el-button type="primary" @click="onSave" size="small"
+                    <el-button type="primary" @click="onSave" size="default"
                       >保存</el-button
                     >
-                    <el-button @click="onCancel" size="small">取消</el-button>
+                    <el-button @click="onCancel" size="default">取消</el-button>
                   </header>
                   <el-main v-if="currentAction" class="func_main">
                     <el-scrollbar>

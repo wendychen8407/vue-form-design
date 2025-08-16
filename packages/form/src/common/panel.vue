@@ -16,10 +16,10 @@
                   <i class="iconfontui icon-bars handle"></i>
                 </el-col>
                 <el-col class="list-group-item" :span="14">
-                  <el-input size="small" v-model="element.name" clearable />
+                  <el-input size="default" v-model="element.name" clearable />
                 </el-col>
                 <el-col :span="2">
-                  <el-button type="danger" circle size="small" @click="removeAt(index)">
+                  <el-button type="danger" circle size="default" @click="removeAt(index)">
                     <el-icon><Delete /></el-icon>
                   </el-button>
                 </el-col>
@@ -27,7 +27,7 @@
             </template>
           </draggable>
         </el-col>
-        <el-button type="primary" text @click="add" size="small">添加面板</el-button>
+        <el-button type="primary" text @click="add" size="default">添加面板</el-button>
       </el-row>
     </div>
   </div>

@@ -98,12 +98,12 @@
           @click="handleForward()"
         ></span>
       </el-tooltip>
-      <!-- <el-button text @click="handleFormSave()" size="small" :disabled="clearIsDisable">保存</el-button>
-      <el-button text @click="handleFormPre()" size="small" :disabled="clearIsDisable">预览</el-button>
-      <el-button text @click="handleFullScreen()" size="small">全屏/非全屏</el-button>
-      <el-button text @click="handleClear()" size="small" :disabled="clearIsDisable">清空</el-button>
-      <el-button text @click="handleBack()" size="small" :disabled="historyIndex == -1">后退</el-button>
-      <el-button text @click="handleForward()" size="small" :disabled="historyIndex == historyLen - 1">前进</el-button> -->
+      <!-- <el-button text @click="handleFormSave()" size="default" :disabled="clearIsDisable">保存</el-button>
+      <el-button text @click="handleFormPre()" size="default" :disabled="clearIsDisable">预览</el-button>
+      <el-button text @click="handleFullScreen()" size="default">全屏/非全屏</el-button>
+      <el-button text @click="handleClear()" size="default" :disabled="clearIsDisable">清空</el-button>
+      <el-button text @click="handleBack()" size="default" :disabled="historyIndex == -1">后退</el-button>
+      <el-button text @click="handleForward()" size="default" :disabled="historyIndex == historyLen - 1">前进</el-button> -->
     </div>
     <div class="pageBtn">
       <div class="el-button-group" v-if="btnIsShow('right', 'viewport')">
