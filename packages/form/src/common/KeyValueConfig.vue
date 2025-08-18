@@ -28,7 +28,7 @@
         </div>
         <div class="keyValueControl">
           <div class="add" @click="addItem(index)">
-            <el-icon :size="12" style="color: #fff"><Plus /></el-icon>
+            <i class="iconfontui icon-zengjia"></i>
           </div>
           <div class="remove" @click="removeItem(index)">
             <el-icon :size="12" style="color: #fff"><SemiSelect /></el-icon>
@@ -46,7 +46,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from "vue";
-  import { Plus, SemiSelect } from '@element-plus/icons-vue';
+  import { SemiSelect } from '@element-plus/icons-vue';
   import { getFormConfig } from "../utils/fieldConfig";
   import fieldProps from "../utils/fieldProps";
   export default defineComponent({
@@ -58,6 +58,7 @@
     props: {
       ...fieldProps,
     },
+    components: { SemiSelect },
     setup(props) {
       function getMaxId() {
         let maxId = 0;
@@ -70,8 +71,6 @@
         return maxId + 1;
       }
       return {
-        Plus,
-        SemiSelect,
         getChangeValue(sitem: any) {
           const data: any = props.data;
           const item: any = props.item;

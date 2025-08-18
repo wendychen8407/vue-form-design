@@ -31,8 +31,8 @@
     justify-content: space-around;
     align-items: center;
     > div {
-      width: 17px;
-      height: 17px;
+      width: 18px;
+      height: 18px;
       border: 1px solid #eee;
       border-radius: 50%;
       background: #fff;
@@ -40,13 +40,14 @@
       align-items: center;
       justify-content: center;
       margin: 5px 0;
+      cursor: pointer;
     }
     .add {
       background: #409eff;
       color: white;
     }
     .remove {
-      background: red;
+      background: #ec4747;
       color: white;
     }
     i {
