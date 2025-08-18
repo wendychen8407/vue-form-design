@@ -44,7 +44,8 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.cm-gutters.cm-gutters-before {
+.ͼ2 .cm-gutters {
   background: #133F63;
+  border-right: 1px solid #1C4E7E;
 }
 </style>
