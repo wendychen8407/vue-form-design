@@ -70,6 +70,8 @@
         return maxId + 1;
       }
       return {
+        Plus,
+        SemiSelect,
         getChangeValue(sitem: any) {
           const data: any = props.data;
           const item: any = props.item;
