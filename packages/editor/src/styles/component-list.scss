@@ -6,6 +6,10 @@
     .filter {
       padding: 12px;
     }
+    .group-name {
+      display: flex;
+      justify-content: flex-start;
+    }
     .list-group {
       // display: flex;
       // flex-wrap: wrap;

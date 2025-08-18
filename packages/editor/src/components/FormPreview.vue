@@ -73,7 +73,7 @@ import {
   watch,
 } from "vue";
 import formStore from "@/controller/form";
-import { Dynamicform } from "starfish-form";
+import { Dynamicform } from "starfish-form-custom";
 import uiControl from "@/controller/ui";
 import Clipboard from "clipboard";
 // import { json } from "@codemirror/lang-json";

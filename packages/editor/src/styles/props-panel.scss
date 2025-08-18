@@ -12,6 +12,7 @@
     overflow: hidden;
     .demo-tabs {
       flex: 1;
+      flex-direction: column;
       .el-tabs__nav {
         display: flex;
         justify-content: space-around;

@@ -34,10 +34,10 @@
             <el-icon :size="12" style="color: #fff"><SemiSelect /></el-icon>
           </div>
           <div class="top" @click="handleTop(index)">
-            <i class="iconfontui icon-shangyi"></i>
+            <el-icon :size="12"><Top /></el-icon>
           </div>
           <div class="bottom" @click="handleBottom(index)">
-            <i class="iconfontui icon-xiayi"></i>
+            <el-icon :size="12"><Bottom /></el-icon>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from "vue";
-  import { SemiSelect } from '@element-plus/icons-vue';
+  import { SemiSelect, Top, Bottom } from '@element-plus/icons-vue';
   import { getFormConfig } from "../utils/fieldConfig";
   import fieldProps from "../utils/fieldProps";
   export default defineComponent({
@@ -57,7 +57,7 @@
     props: {
       ...fieldProps,
     },
-    components: { SemiSelect },
+    components: { SemiSelect, Top, Bottom },
     getFormConfig: getFormConfig("KeyValueConfigMult"),
     setup(props) {
       function getMaxId() {
