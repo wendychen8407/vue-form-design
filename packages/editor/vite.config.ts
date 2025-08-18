@@ -21,6 +21,7 @@ if (process.env.NODE_ENV != "production") {
   alias.push({ find: /^starfish-form$/, replacement: path.join(__dirname, "../form/src/main.ts") });
 }
 export default defineConfig({
+  assetsInclude: ['**/*.png'],
   plugins: [
     dts({
         outputDir: path.join(path.resolve(__dirname, 'dist'), "types"),
