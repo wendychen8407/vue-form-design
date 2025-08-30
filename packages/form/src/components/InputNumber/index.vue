@@ -8,8 +8,8 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }">
-      <el-input-number v-model="item.data.default" :controls-position="item.data.type == 2 ? 'right' : ''" :size="item.data.size" v-if="drag" />
-      <el-input-number v-model="data[item.data.fieldName]" v-if="!drag" :controls-position="item.data.type == 2 ? 'right' : ''" :size="item.data.size" @focus="execFunc('onFocus')" @blur="execFunc('onBlur')" />
+      <el-input-number v-model="item.data.default" :controls-position="item.data.type == 2 ? 'right' : ''" :size="item.data.size" v-if="drag" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'" />
+      <el-input-number v-model="data[item.data.fieldName]" v-if="!drag" :controls-position="item.data.type == 2 ? 'right' : ''" :size="item.data.size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'" @focus="execFunc('onFocus')" @blur="execFunc('onBlur')" />
     </div>
   </div>
 </template>

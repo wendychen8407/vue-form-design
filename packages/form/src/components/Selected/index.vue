@@ -8,10 +8,10 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }">
-      <el-select v-model="item.data.itemConfig.value" :placeholder="item.data.placeholder" v-if="drag" :size="size">
+      <el-select v-model="item.data.itemConfig.value" :placeholder="item.data.placeholder" v-if="drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'">
         <el-option v-for="items in item.data.itemConfig.items" :key="items.value" :label="items.label" :value="items.value" />
       </el-select>
-      <el-select v-model="data[item.data.fieldName]" :placeholder="item.data.placeholder" v-if="!drag" :size="size" @focus="execFunc('onFocus')" @blur="execFunc('onBlur')">
+      <el-select v-model="data[item.data.fieldName]" :placeholder="item.data.placeholder" v-if="!drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'" @focus="execFunc('onFocus')" @blur="execFunc('onBlur')">
         <el-option v-for="items in item.data.itemConfig.items" :key="items.value" :label="items.label" :value="items.value" />
       </el-select>
     </div>

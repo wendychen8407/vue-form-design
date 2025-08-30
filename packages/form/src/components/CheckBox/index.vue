@@ -8,10 +8,10 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
-      <el-checkbox-group v-model="data[item.data.fieldName]" v-if="!drag && data[item.data.fieldName]" :size="size">
+      <el-checkbox-group v-model="data[item.data.fieldName]" v-if="!drag && data[item.data.fieldName]" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'">
         <el-checkbox v-for="(sitem, sindex) in item.data.itemConfig.items" :key="sindex" :label="sitem.value">{{ sitem.label }}</el-checkbox>
       </el-checkbox-group>
-      <el-checkbox-group v-model="item.data.itemConfig.value" v-if="drag" :size="size">
+      <el-checkbox-group v-model="item.data.itemConfig.value" v-if="drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'">
         <el-checkbox v-for="(sitem, sindex) in item.data.itemConfig.items" :key="sindex" :label="sitem.value">{{ sitem.label }}</el-checkbox>
       </el-checkbox-group>
     </div>

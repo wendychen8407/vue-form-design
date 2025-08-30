@@ -8,8 +8,8 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
-      <el-date-picker v-model="item.data.default" type="date" :placeholder="item.data.placeholder" v-if="drag" :size="size"> </el-date-picker>
-      <el-date-picker v-model="data[item.data.fieldName]" type="date" :placeholder="item.data.placeholder" v-if="!drag" :size="size"> </el-date-picker>
+      <el-date-picker v-model="item.data.default" type="date" :placeholder="item.data.placeholder" v-if="drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'"> </el-date-picker>
+      <el-date-picker v-model="data[item.data.fieldName]" type="date" :placeholder="item.data.placeholder" v-if="!drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'"> </el-date-picker>
     </div>
   </div>
 </template>
