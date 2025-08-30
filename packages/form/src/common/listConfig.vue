@@ -5,12 +5,12 @@
     </div>
     <div class="control" :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }">
       <el-row v-for="(items, index) in data[item.data.fieldName]" :key="index" :gutter="10" style="margin-bottom: 10px;">
-          <el-input-number v-model="items.span" :min="0" size="small" controls-position="right" />
-          <el-button type="danger" circle size="small" @click="onDelete(index)" style="margin-left: 5px;">
+          <el-input-number v-model="items.span" :min="0" size="default" controls-position="right" />
+          <el-button type="danger" circle size="default" @click="onDelete(index)" style="margin-left: 5px;">
             <el-icon><Delete /></el-icon>
           </el-button>
       </el-row>
-      <el-button plain @click="onAdd" size="small">添加</el-button>
+      <el-button plain @click="onAdd" size="default">添加</el-button>
     </div>
   </div>
 </template>

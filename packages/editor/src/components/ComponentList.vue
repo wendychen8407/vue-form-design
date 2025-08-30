@@ -7,7 +7,9 @@
         v-model="filterContent"
       />
     </div>
-    <el-button text v-if="newcomponentlist.length > 0">基础控件</el-button>
+    <div class="group-name">
+      <el-button text v-if="newcomponentlist.length > 0">基础控件</el-button>
+    </div>
     <draggable
       class="dragArea list-group"
       :list="newcomponentlist"
@@ -23,12 +25,14 @@
         >
           <div class="form-item">
             <span class="iconfontui" :class="element.icon"></span>
+            <div class="item-text">{{ element.nameCn }}</div>
           </div>
-          <div class="item-text">{{ element.nameCn }}</div>
         </div>
       </template>
     </draggable>
-    <el-button text v-if="layoutList.length > 0">布局控件</el-button>
+    <div class="group-name">
+      <el-button text v-if="layoutList.length > 0">布局控件</el-button>
+    </div>
     <draggable
       class="dragArea list-group"
       :list="layoutList"
@@ -44,8 +48,8 @@
         >
           <div class="form-item">
             <span class="iconfontui" :class="element.icon"></span>
+            <div class="item-text">{{ element.nameCn }}</div>
           </div>
-          <div class="item-text">{{ element.nameCn }}</div>
         </div>
       </template>
     </draggable>

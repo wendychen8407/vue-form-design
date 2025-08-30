@@ -44,7 +44,7 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                   <template #default="scope">
-                    <el-button size="small" type="danger" @click.prevent="deleteRow(scope.$index, index)"> 删除 </el-button>
+                    <el-button size="default" type="danger" @click.prevent="deleteRow(scope.$index, index)"> 删除 </el-button>
                   </template>
                 </el-table-column>
               </el-table>

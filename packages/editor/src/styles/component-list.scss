@@ -6,11 +6,15 @@
     .filter {
       padding: 12px;
     }
+    .group-name {
+      display: flex;
+      justify-content: flex-start;
+    }
     .list-group {
       // display: flex;
       // flex-wrap: wrap;
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* 4列，每列平均分配空间 */
+      grid-template-columns: repeat(2, 1fr); /* 2列，每列平均分配空间 */
       // gap: 10px; /* 网格项之间的间隙 */
     }
 
@@ -21,34 +25,37 @@
       align-items: center;
       flex-wrap: wrap;
       margin: 7px 10px 0;
-      width: 55px;
+      width: 100px;
       .form-item {
-        width: 42px;
-        height: 42px;
-        border: 1px solid #dfdada;
+        width: 96px;
+        height: 32px;
+        line-height: 32px;
+        border: 1px solid #1b6b9b;
+        padding: 5px 8px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 8px;
         transition: all 0.1s ease-in-out;
         margin-bottom: 5px;
-        border-radius: 5px;
+        border-radius: 4px;
         &:hover {
-          background: #409eff;
+          background: #14427b;
           // border: 1px solid #409eff;
           color: #fff;
         }
         > span:first-child {
-          font-size: 18px;
+          font-size: 16px;
         }
       }
       .item-text {
-        height: 30px;
+        height: 32px;
         // display: flex;
         align-items: center;
         font-size: 12px;
         display: inline-block;
         width: 100%;
+        text-align: left;
         -webkit-box-orient: vertical;
         /*! autoprefixer: on*/
 

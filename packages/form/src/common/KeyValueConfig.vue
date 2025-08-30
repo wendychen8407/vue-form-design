@@ -16,13 +16,13 @@
           <div class="inputItem">
             <span>文本：</span>
             <div>
-              <el-input v-model="items.label" size="small" @input="getChangeValue(items)" />
+              <el-input v-model="items.label" size="default" @input="getChangeValue(items)" />
             </div>
           </div>
           <div class="inputItem">
             <span>值：</span>
             <div>
-              <el-input v-model="items.value" size="small" @input="getChangeValue(items)" />
+              <el-input v-model="items.value" size="default" @input="getChangeValue(items)" />
             </div>
           </div>
         </div>
@@ -31,13 +31,13 @@
             <i class="iconfontui icon-zengjia"></i>
           </div>
           <div class="remove" @click="removeItem(index)">
-            <i class="iconfontui icon-shanchu"></i>
+            <el-icon :size="12" style="color: #fff"><SemiSelect /></el-icon>
           </div>
           <div class="top" @click="handleTop(index)">
-            <i class="iconfontui icon-shangyi"></i>
+            <el-icon :size="12"><Top /></el-icon>
           </div>
           <div class="bottom" @click="handleBottom(index)">
-            <i class="iconfontui icon-xiayi"></i>
+            <el-icon :size="12"><Bottom /></el-icon>
           </div>
         </div>
       </div>
@@ -46,6 +46,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from "vue";
+  import { SemiSelect, Top, Bottom } from '@element-plus/icons-vue';
   import { getFormConfig } from "../utils/fieldConfig";
   import fieldProps from "../utils/fieldProps";
   export default defineComponent({
@@ -57,6 +58,7 @@
     props: {
       ...fieldProps,
     },
+    components: { SemiSelect, Top, Bottom },
     setup(props) {
       function getMaxId() {
         let maxId = 0;

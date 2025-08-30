@@ -43,6 +43,7 @@
                 :item="element"
                 :data="{}"
                 v-bind="globalDatas"
+                size="default"
               ></component>
             </Shape>
           </template>

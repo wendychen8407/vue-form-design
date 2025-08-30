@@ -88,7 +88,7 @@
               <el-table-column fixed="right" label="操作" width="200">
                 <template #default="scope">
                   <el-button
-                    size="small"
+                    size="default"
                     type="danger"
                     @click.prevent="deleteRow(scope.$index, index)"
                   >

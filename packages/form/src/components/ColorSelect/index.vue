@@ -9,11 +9,11 @@
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
       <div v-if="drag">
-        <el-input v-model="item.data.default" :placeholder="item.data.placeholder" size="small" style="width: 150px;"/>
+        <el-input v-model="item.data.default" :placeholder="item.data.placeholder" size="default" style="width: 150px;"/>
         <el-color-picker v-model="item.data.default" show-alpha :size="size"></el-color-picker>
       </div>
       <div v-if="!drag">
-        <el-input v-model="data[item.data.fieldName]" :placeholder="item.data.placeholder" size="small" style="width: 150px;"/>
+        <el-input v-model="data[item.data.fieldName]" :placeholder="item.data.placeholder" size="default" style="width: 150px;"/>
         <el-color-picker v-model="data[item.data.fieldName]" show-alpha :size="size"></el-color-picker>
       </div>
     </div>

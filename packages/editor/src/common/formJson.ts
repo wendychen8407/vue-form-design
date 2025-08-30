@@ -32,40 +32,40 @@ const globalFormList = [
       },
     },
   },
-  {
-    ControlType: "RadioGroup",
-    nameCn: "选择器",
-    data: {
-      fieldName: "size",
-      label: "组件尺寸",
-      showRule: "{}",
-      rule: "[]",
-      itemConfig: {
-        value: "small",
-        items: [
-          {
-            label: "large",
-            value: "large",
-            select: false,
-            id: 1,
-          },
-          {
-            label: "default",
-            value: "default",
-            select: false,
-            id: 2,
-          },
-          {
-            label: "small",
-            value: "small",
-            select: true,
-            id: 3,
-          },
-        ],
-        id: 3,
-      },
-    },
-  },
+  // {
+  //   ControlType: "RadioGroup",
+  //   nameCn: "选择器",
+  //   data: {
+  //     fieldName: "size",
+  //     label: "组件尺寸",
+  //     showRule: "{}",
+  //     rule: "[]",
+  //     itemConfig: {
+  //       value: "small",
+  //       items: [
+  //         {
+  //           label: "large",
+  //           value: "large",
+  //           select: false,
+  //           id: 1,
+  //         },
+  //         {
+  //           label: "default",
+  //           value: "default",
+  //           select: false,
+  //           id: 2,
+  //         },
+  //         {
+  //           label: "small",
+  //           value: "small",
+  //           select: true,
+  //           id: 3,
+  //         },
+  //       ],
+  //       id: 3,
+  //     },
+  //   },
+  // },
   {
     ControlType: "InputNumber",
     data: {

@@ -30,7 +30,7 @@
                 :is="item.ControlType"
                 :data="curControl.data"
                 :item="item"
-                :size="globalDatas.size"
+                size="default"
                 :labelWidth="globalDatas.labelWidth"
                 :labelalign="globalDatas.labelalign"
                 v-if="
@@ -41,7 +41,8 @@
             </el-form-item>
           </el-form>
           <el-empty
-            :image-size="200"
+            :image-size="100"
+            :image="emptyImg"
             v-if="!curControl || !curControl.data"
             description="没有选中表单控件"
           ></el-empty>
@@ -124,6 +125,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { proxy } = getCurrentInstance() as any;
+    const emptyImg = new URL('@/assets/images/empty.png', import.meta.url).href
     const { uiControl, hisContrl, formStore } =
       inject<Controls>("control") || {};
     // 该模块是否隐藏 默认显示
@@ -353,6 +355,7 @@ export default defineComponent({
     );
 
     return {
+      emptyImg,
       globalFormLists,
       globalDatas,
       jsonCenter,

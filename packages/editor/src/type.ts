@@ -3,7 +3,7 @@ import type { hisContrl } from "./controller/history";
 import type { formContrl } from "./controller/form";
 import type { ActionForm } from "./controller/action";
 import type { shortCut } from "./controller/shortcut";
-import type { FormConfig, fields } from "starfish-form/src/main";
+import type { FormConfig, fields } from "starfish-form-custom/src/main";
 /**
  * 组件名称枚举
  */

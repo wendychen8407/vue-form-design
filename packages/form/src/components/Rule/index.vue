@@ -137,7 +137,7 @@
               ref="formdragger"
               :formResult="formValue"
               :allFormList="ruleJson"
-              :globalConfig="Object.assign({}, globalDatas, { size: 'large' })"
+              :globalConfig="Object.assign({}, globalDatas, { size: 'default' })"
             ></Dynamicform>
           </el-main>
           <el-footer class="my-Footer" style="height: 60px; text-align: right">
@@ -361,5 +361,8 @@ export default defineComponent({
   .label {
     align-self: flex-start;
   }
+}
+.cm-gutters.cm-gutters-before {
+  background: #133F63;
 }
 </style>
