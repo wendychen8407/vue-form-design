@@ -20,7 +20,7 @@
   import { useWatch } from "../../utils/customHooks";
   export default defineComponent({
     ControlType: "DateTime", // 必须与文件名匹配
-    nameCn: "日期时间选择",
+    nameCn: "日期时间",
     icon: "icon-riqishijian",
     formConfig: getFormConfig("DateTime", [
       { fieldName: "default", component: "DateTime" },

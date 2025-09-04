@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar class="editor_pages_left">
+  <div class="editor_pages_left">
     <div class="filter">
       <el-input
         placeholder="请输入关键词进行过滤"
@@ -53,7 +53,7 @@
         </div>
       </template>
     </draggable>
-  </el-scrollbar>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

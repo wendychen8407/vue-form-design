@@ -20,7 +20,7 @@
   import { useWatch } from "../../utils/customHooks";
   export default defineComponent({
     ControlType: "Date", // 必须与文件名匹配
-    nameCn: "日期选择",
+    nameCn: "日期",
     icon: "icon-24gl-calendar",
     formConfig: getFormConfig("Date", [
       { fieldName: "default", component: "Date" },

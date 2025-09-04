@@ -125,7 +125,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { proxy } = getCurrentInstance() as any;
-    const emptyImg = new URL('@/assets/images/empty.png', import.meta.url).href
+    const emptyImg = new URL('../assets/images/empty.png', import.meta.url).href
     const { uiControl, hisContrl, formStore } =
       inject<Controls>("control") || {};
     // 该模块是否隐藏 默认显示
@@ -372,7 +372,7 @@ export default defineComponent({
       curControl,
       ruleForm,
       show,
-      currentIndex,
+      currentIndex
     };
   },
 });

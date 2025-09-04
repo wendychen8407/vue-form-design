@@ -27,7 +27,7 @@
           @click="handleFormPre()"
         ></span>
       </el-tooltip>
-      <el-tooltip
+      <!-- <el-tooltip
         class="box-item"
         effect="dark"
         content="全屏"
@@ -48,7 +48,7 @@
         "
       >
         <span class="iconfontui icon-suoxiao1" @click="handleFullScreen()"></span>
-      </el-tooltip>
+      </el-tooltip> -->
       <el-tooltip
         class="box-item"
         effect="dark"
