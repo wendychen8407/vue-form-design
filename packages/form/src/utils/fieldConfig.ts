@@ -27,7 +27,7 @@ export interface fields {
   /**
    * 校验规则
    */
-  rule: string;
+  // rule: string;
   /**
    * 默认内容
    */
@@ -73,7 +73,7 @@ const beforeBaseFormCofig: () => FormConfig[] = function () {
         value: "",
         showRule: "{}",
         required: true,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     {
@@ -86,7 +86,7 @@ const beforeBaseFormCofig: () => FormConfig[] = function () {
         value: "标签名称",
         showRule: "{}",
         required: true,
-        rule: "[]",
+        // rule: "[]",
       },
     },
   ];
@@ -101,7 +101,7 @@ const afterBaseFormConfig: () => FormConfig[] = function () {
         label: "是否必填",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     {
@@ -114,21 +114,21 @@ const afterBaseFormConfig: () => FormConfig[] = function () {
         value: "标签名称",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
-    {
-      ControlType: "Rule",
-      data: {
-        fieldName: "rule",
-        tip: "",
-        label: "校验规则",
-        showRule: "{}",
-        required: false,
-        rule: "[]",
-        default: "[]",
-      },
-    },
+    // {
+    //   ControlType: "Rule",
+    //   data: {
+    //     fieldName: "rule",
+    //     tip: "",
+    //     label: "校验规则",
+    //     showRule: "{}",
+    //     required: false,
+    //     // rule: "[]",
+    //     default: "[]",
+    //   },
+    // },
     // {
     //   ControlType: "ShowRule",
     //   data: {
@@ -137,7 +137,7 @@ const afterBaseFormConfig: () => FormConfig[] = function () {
     //     label: "显示条件",
     //     showRule: "{}",
     //     required: false,
-    //     rule: "[]",
+    //     // rule: "[]",
     //     default: "[]",
     //   },
     // },
@@ -149,7 +149,7 @@ const afterBaseFormConfig: () => FormConfig[] = function () {
     //     label: "动作面板",
     //     showRule: "{}",
     //     required: false,
-    //     rule: "[]",
+    //     // rule: "[]",
     //     default: "{}",
     //   },
     // },
@@ -166,7 +166,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "",
     maxLength: 100,
     minLength: 0,
@@ -183,7 +183,7 @@ const fieldsMap: any = {
     effect: "light",
     infotype: "success",
     showRule: "{}",
-    rule: "[]",
+    // rule: "[]",
   },
   TextArea: {
     fieldName: "",
@@ -192,7 +192,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "",
     maxLength: 100,
     minLength: 0,
@@ -206,7 +206,7 @@ const fieldsMap: any = {
     value: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: false,
     state: "normal",
   },
@@ -216,7 +216,7 @@ const fieldsMap: any = {
     tip: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: 0,
     min: 0,
     max: 100,
@@ -304,7 +304,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     state: "normal", // 状态：normal, disabled, readonly
     itemConfig: {
       value: "选项1",
@@ -331,7 +331,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     state: "normal", // 状态：normal, disabled, readonly
     itemConfig: {
       value: ["选项1"],
@@ -358,7 +358,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "",
     state: "normal", // 状态：normal, disabled, readonly
   },
@@ -369,7 +369,7 @@ const fieldsMap: any = {
     value: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: false,
     arrangeMent: 'horizontal',
     state: "normal", // 状态：normal, disabled, readonly
@@ -399,7 +399,7 @@ const fieldsMap: any = {
     value: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
   },
   KeyValueConfig: {
     fieldName: "",
@@ -408,7 +408,7 @@ const fieldsMap: any = {
     value: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
   },
   JsonEditor: {
     fieldName: "",
@@ -416,7 +416,7 @@ const fieldsMap: any = {
     tip: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "[]",
     json: true,
   },
@@ -427,7 +427,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: 0,
     type: "1",
     size: "large",
@@ -440,7 +440,7 @@ const fieldsMap: any = {
     tip: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     color: "#000",
     dividerColor: "#000",
   },
@@ -451,7 +451,7 @@ const fieldsMap: any = {
     placeholder: "1",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "1",
     format: "YYYY-MM-DD", // 日期格式
     state: "normal",
@@ -463,7 +463,7 @@ const fieldsMap: any = {
     placeholder: "请输入",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "",
     state: "normal",
   },
@@ -474,7 +474,7 @@ const fieldsMap: any = {
     placeholder: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: "#409EFF",
   },
   CheckBox: {
@@ -484,7 +484,7 @@ const fieldsMap: any = {
     value: "",
     showRule: "{}",
     required: false,
-    rule: "[]",
+    // rule: "[]",
     default: false,
     state: "normal",
     arrangeMent: 'horizontal', // 布局方式：horizontal, vertical
@@ -522,7 +522,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     placeholder: {
@@ -534,7 +534,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "请输入占位文字",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     precision: {
@@ -546,7 +546,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         default: 0,
       },
     },
@@ -559,7 +559,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         default: 100,
       },
     },
@@ -572,7 +572,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         default: 0,
       },
     },
@@ -585,7 +585,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         itemConfig: {
           value: "normal",
           items: [
@@ -605,7 +605,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         itemConfig: {
           value: "normal",
           items: [
@@ -623,7 +623,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         label: "自适应高度",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     format: {
@@ -635,7 +635,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         itemConfig: {
           value: "YYYY-MM-DD",
           items: [
@@ -657,7 +657,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         label: "是否多选",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     min: {
@@ -669,7 +669,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     max: {
@@ -681,7 +681,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     itemConfig: {
@@ -693,7 +693,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
     type: {
@@ -705,7 +705,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         itemConfig: {
           value: "1",
           id: 1,
@@ -735,7 +735,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         itemConfig: {
           value: "success",
           id: 1,
@@ -777,7 +777,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         itemConfig: {
           value: "light",
           id: 1,
@@ -798,48 +798,6 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         },
       },
     },
-    size: {
-      ControlType: "Radio",
-      data: {
-        fieldName: "size",
-        tip: "",
-        label: "计数器尺寸类型",
-        placeholder: "",
-        showRule: "{}",
-        required: false,
-        rule: "[]",
-        itemConfig: {
-          value: "large",
-          id: 1,
-          items: [
-            {
-              label: "large",
-              value: "large",
-              select: true,
-              id: 1,
-            },
-            {
-              label: "medium",
-              value: "medium",
-              select: false,
-              id: 2,
-            },
-            {
-              label: "small",
-              value: "small",
-              select: false,
-              id: 3,
-            },
-            {
-              label: "mini",
-              value: "mini",
-              select: false,
-              id: 4,
-            },
-          ],
-        },
-      },
-    },
     InputNumber: {
       ControlType: "InputNumber",
       data: {
@@ -849,10 +807,10 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         default: 0,
         type: 1,
-        size: "large",
+        size: "default",
       },
     },
     gutter: {
@@ -864,7 +822,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
         default: 0,
         type: 1,
         size: "small",
@@ -878,7 +836,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         tip: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     },
   };
@@ -894,7 +852,7 @@ function getMoren(fieldName: string, component: string, label?: string): FormCon
         placeholder: "请输入占位文字",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        // rule: "[]",
       },
     };
   } else {

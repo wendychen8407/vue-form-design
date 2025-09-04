@@ -11,6 +11,7 @@
     display: flex;
     overflow: hidden;
     .demo-tabs {
+      width: 320px;
       flex: 1;
       flex-direction: column;
       .el-tabs__nav {

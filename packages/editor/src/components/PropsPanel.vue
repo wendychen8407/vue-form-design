@@ -11,12 +11,13 @@
       style="height: 100%"
     >
       <el-tab-pane label="组件配置" name="form" v-if="panel.includes('form')">
-        <el-scrollbar class="dynamic">
+        <div class="dynamic" >
           <el-form
             ref="ruleForm"
             :model="curControl && (curControl.data || {})"
             :rules="curControl && curControl.rules"
             label-width="120px"
+            width="100%"
             :status-icon="true"
           >
             <el-form-item
@@ -32,7 +33,7 @@
                 :item="item"
                 size="default"
                 :labelWidth="globalDatas.labelWidth"
-                :labelalign="globalDatas.labelalign"
+                :labelalign="2"
                 v-if="
                   (show && item.ControlType === 'JsonEditor') ||
                   item.ControlType !== 'JsonEditor'
@@ -46,7 +47,7 @@
             v-if="!curControl || !curControl.data"
             description="没有选中表单控件"
           ></el-empty>
-        </el-scrollbar>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="JSON配置" name="json" v-if="panel.includes('json')">
         <div class="json" v-if="activeName == 'json'">
@@ -59,9 +60,9 @@
         name="global"
         v-if="panel.includes('global')"
       >
-        <el-scrollbar class="form_tab3" v-if="activeName == 'global'">
+        <div class="form_tab3" v-if="activeName == 'global'">
           <globalFormComponent />
-        </el-scrollbar>
+        </div>
       </el-tab-pane>
     </el-tabs>
 
