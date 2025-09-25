@@ -179,13 +179,13 @@
     <el-drawer
       ref="drawerRef"
       v-model="dialog"
-      title="表单结构树"
+      title="组件结构树"
       :before-close="handleClose"
       direction="ltr"
       custom-class="demo-drawer"
     >
       <div class="demo-drawer__content">
-        <el-input v-model="filterText" placeholder="Filter keyword" />
+        <el-input v-model="filterText" placeholder="输入关键字进行过滤" clearable />
         <el-tree
           :data="tree"
           :props="propsData"

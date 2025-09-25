@@ -43,7 +43,7 @@
         { fieldName: "gutter", component: "InputNumber" },
         { fieldName: "columns", component: "ListConfig" },
       ],
-      ["required", "rule", "tip"]
+      ["required", "rule", "tip", "label"]
     ),
     props: {
       ...fieldProps,

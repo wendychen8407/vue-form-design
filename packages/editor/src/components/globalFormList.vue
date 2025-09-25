@@ -10,6 +10,7 @@
         :item="item"
         :data="globalDatas"
         :controlItems="globalFormLists"
+        size="default"
       ></component>
     </div>
   </div>

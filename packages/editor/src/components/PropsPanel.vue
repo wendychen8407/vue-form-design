@@ -25,6 +25,7 @@
               :key="item.id"
               :control="item.ControlType"
               :prop="item.data.fieldName"
+              v-show="item.data.fieldName !== 'size'"
             >
               <component
                 :drag="false"

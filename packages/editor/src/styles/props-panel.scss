@@ -11,13 +11,20 @@
     display: flex;
     overflow: hidden;
     .demo-tabs {
-      width: 320px;
+      width: 380px;
       flex: 1;
       flex-direction: column;
       .el-tabs__nav {
         display: flex;
         justify-content: space-around;
         width: 100%;
+      }
+
+      .dynamic {
+        padding-top: 1px;
+        .el-form-item__content {
+          margin-bottom: 16px;
+        }
       }
     }
     .form_tab3 {

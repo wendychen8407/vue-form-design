@@ -107,63 +107,87 @@ export default defineComponent({
         return formStore?.get("allFormList");
       },
       set(value: AllFormItem[]) {
-        // 防止引用类型污染
-        value = value.map((item: AllFormItem) => {
-          console.log(formcomponents[item.ControlType as any]);
-          if (!item.data && !item.controlItems) {
-            item = proxy.$Flex.deepClone(item);
-            const currentComponent = formcomponents[item.ControlType as any];
-            item.formConfig = currentComponent.formConfig;
-            item.data = item.formConfig.data();
-            if (!item.data.fieldName) {
-              item.data.fieldName =
-                item.ControlType + "_" + proxy.$Flex.generateMixed();
+        // 确保所有项都是响应式对象
+        const processedValue = value
+          .map((item: AllFormItem) => {
+            // 检查是否是有效的组件
+            if (!item || !item.ControlType) {
+              console.error("无效的组件:", item);
+              return null;
             }
-            item.id = proxy.$Flex.generateMixed();
-            let controlItems = (
-              item.formConfig.morenConfig() as Array<any>
-            ).concat(dynamicList.value);
-            /**
-             * 兼容动作面板,不同表单可能需要的事件不一样
-             */
-            if (
-              currentComponent.actionType &&
-              currentComponent.actionType.length > 0
-            ) {
-              console.log(controlItems);
-              controlItems.find((item) => {
-                if (item.ControlType == "Action") {
-                  item.data.formConfig = {
-                    value: {},
-                    items: [],
-                  };
-                  currentComponent.actionType.forEach(
-                    (action: string, index: number) => {
-                      item.data.formConfig.items.push({
-                        label: action,
-                        value: action,
-                        id: index + 1,
-                      });
-                    }
+
+            // 如果组件没有初始化数据，进行初始化
+            if (!item.data || !item.controlItems) {
+              try {
+                const clonedItem = proxy.$Flex.deepClone(item);
+                const currentComponent =
+                  formcomponents[item.ControlType as any];
+
+                if (!currentComponent) {
+                  console.error("未找到组件:", item.ControlType);
+                  return item; // 返回原始项避免破坏
+                }
+
+                clonedItem.formConfig = currentComponent.formConfig;
+                clonedItem.data = clonedItem.formConfig?.data?.() || {};
+
+                if (!clonedItem.data.fieldName) {
+                  clonedItem.data.fieldName =
+                    clonedItem.ControlType + "_" + proxy.$Flex.generateMixed();
+                }
+
+                clonedItem.id = clonedItem.id || proxy.$Flex.generateMixed();
+
+                let controlItems = (
+                  clonedItem.formConfig?.morenConfig?.() || []
+                ).concat(dynamicList.value || []);
+
+                // 动作面板处理逻辑
+                if (currentComponent.actionType?.length > 0) {
+                  const actionControl = controlItems.find(
+                    (control) => control.ControlType == "Action"
+                  );
+                  if (actionControl) {
+                    actionControl.data.formConfig = {
+                      value: {},
+                      items: [],
+                    };
+                    currentComponent.actionType.forEach(
+                      (action: string, index: number) => {
+                        actionControl.data.formConfig.items.push({
+                          label: action,
+                          value: action,
+                          id: index + 1,
+                        });
+                      }
+                    );
+                  }
+                } else {
+                  controlItems = controlItems.filter(
+                    (control) => control.ControlType !== "Action"
                   );
                 }
-              });
-            } else {
-              controlItems = controlItems.filter((item) => {
-                if (item.ControlType !== "Action") {
-                  return item;
-                }
-              });
+
+                clonedItem.rules = proxy.$Flex.controlFormRule(
+                  controlItems,
+                  clonedItem
+                );
+                clonedItem.controlItems = controlItems;
+
+                return clonedItem;
+              } catch (error) {
+                console.error("组件初始化失败:", error, item);
+                return item; // 出错时返回原始项
+              }
             }
-            item.rules = proxy.$Flex.controlFormRule(controlItems, item);
-            item.controlItems = controlItems;
-          }
-          // delete item.formConfig;
-          // delete item.icon;
-          return item;
-        });
-        console.log("value", value);
-        formStore?.updateAllFormList(value);
+
+            // 如果已经有数据，确保是响应式对象
+            return proxy.$Flex.deepClone(item);
+          })
+          .filter(Boolean); // 过滤掉null值
+
+        console.log("处理后的value", processedValue);
+        formStore?.updateAllFormList(processedValue);
       },
     });
     const currentId = computed(() => {
@@ -198,6 +222,10 @@ export default defineComponent({
       store?.set("curList", allmainList.value);
     };
     const addControl = (e: any) => {
+      console.log("拖拽添加的组件:", allmainList.value[e.newIndex]);
+      console.log("组件类型:", allmainList.value[e.newIndex]?.ControlType);
+      console.log("是否有data:", !!allmainList.value[e.newIndex]?.data);
+
       formStore?.setFormCurrentId(allmainList.value[e.newIndex]?.id);
       formStore?.setFormCurrentIndex(e.newIndex);
       store?.set("curList", allmainList.value);

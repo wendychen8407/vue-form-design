@@ -3,7 +3,7 @@ import { reactive, toRaw } from "vue";
 import { UiState, setColumnWidth, GetColumnWidth } from "@/type.ts";
 
 const DEFAUTL_LEFT_COLUMN_WIDTH = 232;
-const DEFAUTL_RIGHT_COLUMN_WIDTH = 320;
+const DEFAUTL_RIGHT_COLUMN_WIDTH = 380;
 /**
  * 编辑器各模块的宽度
  */

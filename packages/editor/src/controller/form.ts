@@ -1,7 +1,7 @@
 import { reactive } from "vue";
 import history from "@/controller/history";
 import { AllFormItem, FormState, BaseFormConfig } from "@/type";
-import type {fieldTds, fieldsTrs} from 'starfish-form/src/utils/fieldConfig';
+import type { fieldTds, fieldsTrs } from "starfish-form/src/utils/fieldConfig";
 const state = reactive<FormState>({
   allFormList: [], // 存储所有选择的表单控件
   curControl: {}, // 选中的表单控件
@@ -22,11 +22,15 @@ export { state };
 
 class Form {
   updateAllFormList(allFormList: AllFormItem[]) {
-    console.log("allForm", allFormList);
-    state.allFormList = allFormList;
-    // 解决属性面板表单和jsontab切换后,数据不同步问题
-    if (state.currentIndex != -1) {
-      state.curControl = allFormList[state.currentIndex];
+    // 确保所有项都是有效的
+    const validList = allFormList.filter(
+      (item) => item && item.ControlType && item.id
+    );
+    console.log("更新表单列表:", validList);
+    state.allFormList = validList;
+
+    if (state.currentIndex != -1 && validList[state.currentIndex]) {
+      state.curControl = validList[state.currentIndex];
     }
   }
   setHistory() {
@@ -34,7 +38,9 @@ class Form {
       allFormList: window.VueContext.$Flex.deepClone(state.allFormList),
       currentIndex: state.currentIndex,
       currentId: state.currentId,
-      curControl: window.VueContext.$Flex.deepClone(state.allFormList[state.currentIndex]),
+      curControl: window.VueContext.$Flex.deepClone(
+        state.allFormList[state.currentIndex]
+      ),
     });
   }
   setFormCurrentIndex(index: number) {
@@ -151,9 +157,12 @@ class Form {
               });
             });
           }
-        } else if (item.ControlType == "Collapse" || item.ControlType == "Tabs") {
+        } else if (
+          item.ControlType == "Collapse" ||
+          item.ControlType == "Tabs"
+        ) {
           const items = item.data.items;
-          if(items){
+          if (items) {
             items.forEach((colItem: { list: any }) => {
               Object.assign(data, this.getDynamicForm(colItem.list));
             });
@@ -164,8 +173,7 @@ class Form {
           if (typeof item.data.itemConfig.value == "string") {
             data[item.data.fieldName] = item.data.itemConfig.value;
           } else {
-            // 防止对数据进行劫持监听
-            data[item.data.fieldName] = [...item.data.itemConfig.value];
+            data[item.data.fieldName] = [...(item.data.itemConfig.value || [])];
           }
         } else {
           data[item.data.fieldName] = item.data.default;
@@ -200,7 +208,6 @@ class Form {
     return (state as any)[name];
   }
 }
-
 
 export type formContrl = Form;
 

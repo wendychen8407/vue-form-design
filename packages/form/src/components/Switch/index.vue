@@ -28,11 +28,17 @@
       class="control"
       :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
     >
-      <el-switch v-model="item.data.default" v-if="drag" :size="size" />
+      <el-switch
+        v-model="item.data.default"
+        v-if="drag"
+        :size="size"
+        :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
+      />
       <el-switch
         v-model="data[item.data.fieldName]"
         v-if="!drag"
         :size="size"
+        :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
       />
     </div>
   </div>

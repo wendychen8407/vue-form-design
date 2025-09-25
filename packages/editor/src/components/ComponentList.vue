@@ -5,6 +5,7 @@
         placeholder="请输入关键词进行过滤"
         size=""
         v-model="filterContent"
+        clearable
       />
     </div>
     <div class="group-name">

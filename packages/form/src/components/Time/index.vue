@@ -8,8 +8,10 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
-      <el-time-select v-model="item.data.default" start="08:30" step="00:15" end="18:30" :size="size" :placeholder="item.data.placeholder" v-if="drag"></el-time-select>
-      <el-time-select v-model="data[item.data.fieldName]" start="08:30" step="00:15" end="18:30" :size="size" :placeholder="item.data.placeholder" v-if="!drag"></el-time-select>
+      <el-time-select v-model="item.data.default" start="08:30" step="00:15" end="18:30" :size="size" :disabled="item.data.state === 'disabled'"
+        :readonly="item.data.state === 'readonly'" :placeholder="item.data.placeholder" v-if="drag"></el-time-select>
+      <el-time-select v-model="data[item.data.fieldName]" start="08:30" step="00:15" end="18:30" :size="size" :disabled="item.data.state === 'disabled'"
+        :readonly="item.data.state === 'readonly'" :placeholder="item.data.placeholder" v-if="!drag"></el-time-select>
     </div>
   </div>
 </template>

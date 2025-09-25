@@ -44,7 +44,7 @@
         // { fieldName: "borderShow", component: "Switch", label: "是否显示边框" },
         // {fieldName: 'borderWidth', component: 'InputNumber', label: "边框宽度"}
       ],
-      ["required", "rule", "tip"]
+      ["required", "rule", "tip", "label"]
     ),
     setup(props) {
       const { proxy } = getCurrentInstance() as any;
