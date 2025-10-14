@@ -23,6 +23,8 @@
       ></el-date-picker>
       
       <!-- 实际运行时的组件 -->
+      <!-- 只读的时候就展示文字 -->
+      <span v-if="!drag && item.data.state === 'readonly'">{{ formatReadonlyDate(data[item.data.fieldName], item.data.format) }}</span>
       <el-date-picker 
         v-model="data[item.data.fieldName]" 
         width="240px"
@@ -30,7 +32,7 @@
         :format="item.data.format" 
         :value-format="item.data.format" 
         :placeholder="item.data.placeholder" 
-        v-if="!drag" 
+        v-else-if="!drag" 
         :size="size" 
         :disabled="item.data.state === 'disabled'" 
         :readonly="item.data.state === 'readonly'"
@@ -48,7 +50,7 @@
     nameCn: "日期",
     icon: "icon-24gl-calendar",
     formConfig: getFormConfig("Date", [
-      { fieldName: "default", component: "Date" },
+      { fieldName: "default", component: "DateTime" },
       { fieldName: "placeholder", component: "Text" },
       { fieldName: "format", component: "Selected" },
       { fieldName: "state", component: "Radio" },
@@ -74,8 +76,42 @@
         
         return formatTypeMap[format] || 'date';
       };
+       // 格式化只读日期显示
+      const formatReadonlyDate = (dateValue: any, format: string) => {
+        if (!dateValue) return '--';
+        
+        // 如果已经是格式化好的字符串，直接返回
+        if (typeof dateValue === 'string') {
+          return dateValue;
+        }
+        
+        // 如果是日期对象，进行格式化
+        if (dateValue instanceof Date) {
+          const year = dateValue.getFullYear();
+          const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+          const day = String(dateValue.getDate()).padStart(2, '0');
+          const hours = String(dateValue.getHours()).padStart(2, '0');
+          const minutes = String(dateValue.getMinutes()).padStart(2, '0');
+          const seconds = String(dateValue.getSeconds()).padStart(2, '0');
+          
+          const formatMap: Record<string, string> = {
+            'YYYY': `${year}`,
+            'YYYY-MM': `${year}-${month}`,
+            'YYYY-MM-DD': `${year}-${month}-${day}`,
+            'YYYY-MM-DD HH': `${year}-${month}-${day} ${hours}`,
+            'YYYY-MM-DD HH:mm': `${year}-${month}-${day} ${hours}:${minutes}`,
+            'YYYY-MM-DD HH:mm:ss': `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+          };
+          
+          return formatMap[format] || `${year}-${month}-${day}`;
+        }
+        
+        // 其他情况返回原始值
+        return String(dateValue);
+      };
       return {
-        getPickerType
+        getPickerType,
+        formatReadonlyDate
       };
     },
   });

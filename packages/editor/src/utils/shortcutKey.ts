@@ -10,10 +10,10 @@ export function listenGlobalKeyDown(list: shortCutType, dom: HTMLDivElement | an
       e.inputEvent.preventDefault();
       list.delete();
     })
-    .keyup("backspace", (e) => {
-      e.inputEvent.preventDefault();
-      list.delete();
-    })
+    // .keyup("backspace", (e) => {
+    //   e.inputEvent.preventDefault();
+    //   list.delete();
+    // })
     .keydown([ctrl, "c"], (e) => {
       e.inputEvent.preventDefault();
       list.copy();

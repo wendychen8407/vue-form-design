@@ -90,6 +90,29 @@
               trigger: "blur",
             });
           }
+          // 新增 minLength 校验
+          if (
+            typeof item.data.minLength === "number" &&
+            item.data.minLength > 0
+          ) {
+            rule.push({
+              validator: (rule: any, value: any, callback: any) => {
+                if (
+                  typeof value === "string" &&
+                  value.length < item.data.minLength
+                ) {
+                  callback(
+                    new Error(
+                      `${item.data.label}最少输入${item.data.minLength}个字符`
+                    )
+                  );
+                } else {
+                  callback();
+                }
+              },
+              trigger: "blur",
+            });
+          }
           if (typeof item.data.rule == "string") {
             rule = rule.concat(proxy.$Flex.tryParseJson(item.data.rule));
           } else {

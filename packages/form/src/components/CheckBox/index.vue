@@ -8,7 +8,9 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
-      <el-checkbox-group v-model="data[item.data.fieldName]" :class="{'vertical-group': item.data.arrangeMent === 'vertical'}" v-if="!drag && data[item.data.fieldName]" :size="size" :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'">
+      <!-- 只读的时候就只展示文本 -->
+      <span v-if="!drag && data[item.data.fieldName] && item.data.state === 'readonly'">{{ data[item.data.fieldName].join(',') || '--' }}</span>
+      <el-checkbox-group v-model="data[item.data.fieldName]" :class="{'vertical-group': item.data.arrangeMent === 'vertical'}" v-else-if="!drag && data[item.data.fieldName]" :size="size" :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'">
         <el-checkbox v-for="(sitem, sindex) in item.data.itemConfig.items" :key="sindex" :label="sitem.value">{{ sitem.label }}</el-checkbox>
       </el-checkbox-group>
       <el-checkbox-group v-model="item.data.itemConfig.value" :class="{'vertical-group': item.data.arrangeMent === 'vertical'}" v-if="drag" :size="size" :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'">

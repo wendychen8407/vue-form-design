@@ -44,11 +44,12 @@
           :value="items.value"
         />
       </el-select>
+      <span v-if="!drag && item.data.state === 'readonly'">{{ data[item.data.fieldName].join(',') || '--' }}</span>
       <el-select
         v-model="data[item.data.fieldName]"
         width="240px"
         :placeholder="item.data.placeholder"
-        v-if="!drag"
+        v-else-if="!drag"
         multiple
         :size="size"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"

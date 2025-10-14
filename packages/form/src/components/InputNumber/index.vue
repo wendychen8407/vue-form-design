@@ -37,10 +37,12 @@
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
         v-if="drag"
       />
+      <!-- 只读展示文字 -->
+      <span v-if="!drag && item.data.state === 'readonly'">{{ formatReadonlyNumber(data[item.data.fieldName], item.data.precision) }}</span>
       <el-input-number
         v-model="data[item.data.fieldName]"
         width="240px"
-        v-if="!drag"
+        v-else-if="!drag"
         :controls-position="item.data.type == 2 ? 'right' : ''"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
         :precision="item.data.precision"
@@ -78,7 +80,30 @@ export default defineComponent({
   setup(props) {
     const vm = getCurrentInstance() as ComponentInternalInstance;
     useWatch(props);
+     // 格式化只读数字显示
+    const formatReadonlyNumber = (value: any, precision: number) => {
+      if (value === null || value === undefined || value === '') {
+        return '-';
+      }
+      
+      // 转换为数字
+      const numValue = Number(value);
+      
+      // 检查是否为有效数字
+      if (isNaN(numValue)) {
+        return String(value);
+      }
+      
+      // 如果有精度设置，进行格式化
+      if (precision !== undefined && precision !== null) {
+        return numValue.toFixed(precision);
+      }
+      
+      // 如果没有精度设置，直接返回数字
+      return String(numValue);
+    };
     return {
+      formatReadonlyNumber,
       execFunc(type: string) {
         if (props.item.data.action && props.item.data.action[type]) {
           window.VApp.$Flex.funcExec(props.item.data.action[type], vm.proxy, [

@@ -29,8 +29,9 @@
       class="control"
       :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
     >
+      <span v-if="!drag && item.data.state === 'readonly'">{{ data[item.data.fieldName] || '--' }}</span>
       <el-radio-group
-        v-if="!drag"
+        v-else-if="!drag"
         v-model="data[item.data.fieldName]"
         :size="size"
         :class="{'vertical-group': item.data.arrangeMent === 'vertical'}"

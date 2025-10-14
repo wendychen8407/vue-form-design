@@ -135,90 +135,138 @@ class Flex {
   /**
    * json转标准数据格式进行收口
    */
-  public jsonToForm(item: AllFormItem) {
+public jsonToForm(item: AllFormItem) {
+  try {
+    // 基础参数校验
+    if (!item || !item.ControlType) {
+      console.error('jsonToForm: 无效的 item 参数', item);
+      return item;
+    }
+
     if (!item.data || !item.controlItems) {
       item = this.deepClone(item);
       const currentComponent = window.VApp.$formcomponents[item.ControlType as any];
-      item.formConfig = window.VApp.$formcomponents[item.ControlType as any]?.formConfig || {};
-      if (!item.data) {
-        item.data = item.formConfig.data();
+      
+      // 容错处理：确保 formConfig 存在
+      if (!currentComponent) {
+        console.warn(`jsonToForm: 未找到组件 ${item.ControlType}，使用默认配置`);
+        item.formConfig = {
+          data: () => ({}),
+          morenConfig: () => []
+        };
+      } else {
+        item.formConfig = currentComponent.formConfig || {};
       }
 
+      // 容错处理：确保 data 方法存在
+      if (!item.data) {
+        if (item.formConfig.data && typeof item.formConfig.data === 'function') {
+          item.data = item.formConfig.data();
+        } else {
+          console.warn(`jsonToForm: ${item.ControlType} 缺少 data 方法，使用空对象`);
+          item.data = {};
+        }
+      }
+
+      // 容错处理：确保 fieldName 存在
       if (!item.data.fieldName) {
         item.data.fieldName = item.ControlType + "_" + this.generateMixed();
       }
+
+      // 布局组件递归处理（保持原有逻辑，添加容错）
       if (item.layout) {
-        if (item.ControlType == "Grid" && item.data.columns && item.data.columns.length > 0) {
+        if (item.ControlType == "Grid" && item.data.columns && Array.isArray(item.data.columns)) {
           item.data.columns = item.data.columns.map((colItem: any) => {
-            if (colItem.list && colItem.list.length > 0) {
-              colItem.list = this.jsonToForm(colItem.list);
+            if (colItem.list && Array.isArray(colItem.list)) {
+              colItem.list = colItem.list.map((listItem: any) => this.jsonToForm(listItem));
             }
             return colItem;
           });
-        } else if (item.ControlType == "TableLayout" && item.data.trs && item.data.trs.length > 0) {
-          /**
-           * 需要自测一下
-           */
+        } else if (item.ControlType == "TableLayout" && item.data.trs && Array.isArray(item.data.trs)) {
           item.data.trs = item.data.trs.map((trItem: any) => {
-            trItem.tds.forEach((tdItem: any) => {
-              if (tdItem.list && tdItem.list.length > 0) {
-                tdItem.list = this.jsonToForm(tdItem.list);
-              }
-              return tdItem;
-            });
+            if (trItem.tds && Array.isArray(trItem.tds)) {
+              trItem.tds = trItem.tds.map((tdItem: any) => {
+                if (tdItem.list && Array.isArray(tdItem.list)) {
+                  tdItem.list = tdItem.list.map((listItem: any) => this.jsonToForm(listItem));
+                }
+                return tdItem;
+              });
+            }
             return trItem;
           });
-        } else if ((item.ControlType == "Collapse" || item.ControlType == "Tabs") && item.data.items && item.data.items.length > 0) {
+        } else if ((item.ControlType == "Collapse" || item.ControlType == "Tabs") && item.data.items && Array.isArray(item.data.items)) {
           item.data.items = item.data.items.map((colItem: any) => {
-            if (colItem.list && colItem.list.length > 0) {
-              colItem.list = this.jsonToForm(colItem.list);
+            if (colItem.list && Array.isArray(colItem.list)) {
+              colItem.list = colItem.list.map((listItem: any) => this.jsonToForm(listItem));
             }
             return colItem;
           });
         }
       }
+
       /**
        * 全局动态配置
        */
-      const dynamicList = formStore?.get("globalFormList")?.filter((item: any) => {
-        if (item.dynamic) {
-          return item;
-        }
-      });
-      item.id = this.generateMixed();
-      let controlItems = item.formConfig.morenConfig().concat(dynamicList);
+      const dynamicList = formStore?.get("globalFormList")?.filter((globalItem: any) => {
+        return globalItem && globalItem.dynamic;
+      }) || [];
+
+      item.id = item.id || this.generateMixed();
+      
+      // 容错处理：确保 morenConfig 方法存在
+      let controlItems: any[] = [];
+      if (item.formConfig.morenConfig && typeof item.formConfig.morenConfig === 'function') {
+        controlItems = item.formConfig.morenConfig().concat(dynamicList);
+      } else {
+        console.warn(`jsonToForm: ${item.ControlType} 缺少 morenConfig 方法，使用空数组`);
+        controlItems = dynamicList;
+      }
+
       /**
        * 兼容动作面板,不同表单可能需要的事件不一样
        */
-      if (currentComponent.actionType && currentComponent.actionType.length > 0) {
-        console.log(controlItems);
-        controlItems.find((item: any) => {
-          if (item.ControlType == "Action") {
-            item.data.formConfig = {
-              value: {},
-              items: [],
-            };
-            currentComponent.actionType.forEach((action: string, index: number) => {
-              item.data.formConfig.items.push({
+      if (currentComponent && currentComponent.actionType && Array.isArray(currentComponent.actionType) && currentComponent.actionType.length > 0) {
+        const actionControl = controlItems.find((controlItem: any) => controlItem && controlItem.ControlType == "Action");
+        if (actionControl) {
+          actionControl.data = actionControl.data || {};
+          actionControl.data.formConfig = {
+            value: {},
+            items: [],
+          };
+          currentComponent.actionType.forEach((action: string, index: number) => {
+            if (actionControl.data.formConfig) {
+              actionControl.data.formConfig.items.push({
                 label: action,
                 value: action,
                 id: index + 1,
               });
-            });
-          }
-        });
+            }
+          });
+        }
       } else {
-        controlItems = controlItems.filter((item: any) => {
-          if (item.ControlType !== "Action") {
-            return item;
-          }
+        controlItems = controlItems.filter((controlItem: any) => {
+          return controlItem && controlItem.ControlType !== "Action";
         });
       }
-      item.rules = this.controlFormRule(controlItems);
+
+      // 容错处理：确保 controlFormRule 方法存在
+      if (this.controlFormRule && typeof this.controlFormRule === 'function') {
+        item.rules = this.controlFormRule(controlItems, item);
+      } else {
+        console.warn('jsonToForm: controlFormRule 方法不存在，使用空数组');
+        item.rules = [];
+      }
+      
       item.controlItems = controlItems;
     }
+    
+    return item;
+  } catch (error) {
+    console.error('jsonToForm: 处理组件时发生错误', error, item);
+    // 返回原始 item，避免整个流程中断
     return item;
   }
+}
 
   /**
    * 完整的表单列表数据进行删减,方便展示

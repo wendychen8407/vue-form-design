@@ -27,7 +27,7 @@ export interface fields {
   /**
    * 校验规则
    */
-  // rule: string;
+  rule?: string;
   /**
    * 默认内容
    */
@@ -171,6 +171,7 @@ const fieldsMap: any = {
     maxLength: 100,
     minLength: 0,
     state: "normal", // 状态：normal, disabled, readonly
+    align: 'left'
   },
   Info: {
     fieldName: "",
@@ -529,7 +530,9 @@ type fieldMap =
   | "autoHeight"
   | "format"
   | "precision"
-  | "arrangeMent";
+  | "arrangeMent"
+  | "align"
+  | "rule";
 
 type morenFields = Partial<Record<fieldMap, FormConfig>>;
 
@@ -548,7 +551,7 @@ function getMoren(
         placeholder: "",
         showRule: "{}",
         required: false,
-        rule: "[]",
+        rule: "[]"
       },
     },
     placeholder: {
@@ -561,6 +564,18 @@ function getMoren(
         showRule: "{}",
         required: false,
         rule: "[]",
+      },
+    },
+    rule: {
+      ControlType: "Rule",
+      data: {
+        fieldName: "rule",
+        tip: "",
+        label: "校验规则",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        default: "[]",
       },
     },
     precision: {
@@ -618,6 +633,26 @@ function getMoren(
             { label: "正常", value: "normal" },
             { label: "禁用", value: "disabled" },
             { label: "只读", value: "readonly" },
+          ],
+        },
+      },
+    },
+    align: {
+      ControlType: "Radio",
+      data: {
+        fieldName: "align",
+        tip: "",
+        label: "对齐方式",
+        placeholder: "",
+        showRule: "{}",
+        required: false,
+        rule: "[]",
+        itemConfig: {
+          value: "left",
+          items: [
+            { label: "左", value: "left" },
+            { label: "中", value: "center" },
+            { label: "右", value: "right" },
           ],
         },
       },
@@ -933,6 +968,7 @@ interface Config {
   fieldName: string;
   component: string;
   label?: string;
+  format?: string;
 }
 
 interface FormConfigReturn {

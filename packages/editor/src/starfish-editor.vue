@@ -132,15 +132,15 @@ export default defineComponent({
     onMounted(() => {
       dom = workspace.value?.$el;
       if (!props.shortcutDisabled) {
-        dom.addEventListener("mouseenter", mouseenterHandler);
-        dom.addEventListener("mouseleave", mouseleaveHandler);
+        // dom.addEventListener("mouseenter", mouseenterHandler);
+        // dom.addEventListener("mouseleave", mouseleaveHandler);
         keycons = listenGlobalKeyDown(formKeyconList, dom);
       }
     });
     onUnmounted(() => {
       if (!props.shortcutDisabled) {
-        dom.removeEventListener("mouseenter", mouseenterHandler);
-        dom.removeEventListener("mouseleave", mouseleaveHandler);
+        // dom.removeEventListener("mouseenter", mouseenterHandler);
+        // dom.removeEventListener("mouseleave", mouseleaveHandler);
         keycons.destroy();
       }
     });

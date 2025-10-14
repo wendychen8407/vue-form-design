@@ -24,11 +24,24 @@
       class="control"
       :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
     >
-      <el-collapse
+      <el-dropdown @command="handleDropdown" style="margin-top: 10px">
+        <el-button type="success">
+          新增规则<i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="enum">默认枚举</el-dropdown-item>
+            <el-dropdown-item command="func">自定义函数规则</el-dropdown-item>
+            <el-dropdown-item command="high">高级模式</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+        <el-collapse
         v-if="
           Array.isArray(data[item.data.fieldName]) &&
           data[item.data.fieldName].length > 0
         "
+        style="margin-top: 16px;"
       >
         <el-collapse-item
           :title="itemList.title"
@@ -68,28 +81,9 @@
               >规则表单编辑</el-button
             >
           </div>
-          <el-button
-            type="danger"
-            circle
-            @click="deleteRule(index)"
-            style="margin-left: 10px"
-          >
-            <el-icon><Delete /></el-icon>
-          </el-button>
+          <el-icon @click="deleteRule(index)" style="margin-left: 10px" :size="14"><Delete /></el-icon>
         </el-collapse-item>
       </el-collapse>
-      <el-dropdown @command="handleDropdown" style="margin-top: 10px">
-        <el-button type="success">
-          新增规则<i class="el-icon-arrow-down el-icon--right"></i>
-        </el-button>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="enum">默认枚举</el-dropdown-item>
-            <el-dropdown-item command="func">自定义函数规则</el-dropdown-item>
-            <el-dropdown-item command="high">高级模式</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
     </div>
     <CustomDialog ref="codeMyDialog">
       <div

@@ -30,7 +30,7 @@
     >
       <el-input
         v-model="item.data.default"
-        width="240px"
+        width="200px"
         :placeholder="item.data.placeholder"
         v-if="drag"
         :size="size"
@@ -39,17 +39,20 @@
         :readonly="item.data.state === 'readonly'"
         :maxlength="item.data.maxLength"
         :minlength="item.data.minLength"
+        :class="'input-' + item.data.align"
       />
+      <span v-if="!drag && item.data.state === 'readonly'">{{ data[item.data.fieldName] || '--' }}</span>
       <el-input
         v-model="data[item.data.fieldName]"
-        width="240px"
+        width="200px"
         :placeholder="item.data.placeholder"
-        v-if="!drag"
+        v-else-if="!drag"
         :size="size"
         :disabled="item.data.state === 'disabled'"
         :readonly="item.data.state === 'readonly'"
         :maxlength="item.data.maxLength"
         :minlength="item.data.minLength"
+        :class="'input-' + item.data.align"
         clearable
         @focus="execFunc('onFocus')"
         @blur="execFunc('onBlur')"
@@ -76,6 +79,8 @@ export default defineComponent({
     { fieldName: "maxLength", component: "InputNumber" },
     { fieldName: "minLength", component: "InputNumber" },
     { fieldName: "state", component: "Radio" },
+    { fieldName: "align", component: "Radio" },
+    { fieldName: "rule", component: "Rule" },
   ]),
   actionType: ["onChange", "onFocus", "onBlur"],
   props: {

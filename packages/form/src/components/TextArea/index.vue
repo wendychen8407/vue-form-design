@@ -40,9 +40,10 @@
         :autosize="item.data.autoHeight"
         :size="size"
       />
+      <span v-if="!drag && item.data.state === 'readonly'">{{ data[item.data.fieldName] || '--' }}</span>
       <el-input
         type="textarea"
-        v-if="!drag"
+        v-else-if="!drag"
         v-model="data[item.data.fieldName]"
         :placeholder="item.data.placeholder"
         :disabled="item.data.state === 'disabled'"

@@ -272,11 +272,12 @@ export default defineComponent({
           formStore?.set("previewShow", ispreview);
           formStore?.set("preview", false);
         } else if (ispreview) {
-          ElNotification({
-            title: "Success",
-            message: type ? "已自动保存" : "保存成功",
-            type: "success",
-          });
+          console.log('保存成功')
+          // ElNotification({
+          //   title: "Success",
+          //   message: type ? "已自动保存" : "保存成功",
+          //   type: "success",
+          // });
         }
       }
     };
