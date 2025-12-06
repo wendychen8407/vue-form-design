@@ -48,6 +48,8 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     InputNumber: typeof import('./src/components/InputNumber/index.vue')['default']
     JsonEditor: typeof import('./src/components/JsonEditor/index.vue')['default']
+    MenuBar: typeof import('./src/components/RichText/MenuBar.vue')['default']
+    MenuItem: typeof import('./src/components/RichText/MenuItem.vue')['default']
     Radio: typeof import('./src/components/Radio/index.vue')['default']
     RichText: typeof import('./src/components/RichText/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

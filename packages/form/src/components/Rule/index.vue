@@ -25,7 +25,7 @@
       :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
     >
       <el-dropdown @command="handleDropdown" style="margin-top: 10px">
-        <el-button type="success">
+        <el-button type="primary">
           新增规则<i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <template #dropdown>
@@ -36,54 +36,62 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-        <el-collapse
+      <div
         v-if="
           Array.isArray(data[item.data.fieldName]) &&
           data[item.data.fieldName].length > 0
         "
-        style="margin-top: 16px;"
+        class="rule-container"
+        style="margin-top: 16px"
       >
-        <el-collapse-item
-          :title="itemList.title"
-          :name="itemList.title"
+        <div
           v-for="(itemList, index) in data[item.data.fieldName]"
           :key="index"
+          class="rule-item"
         >
-          <div class="collapse_enums" v-if="itemList.type == 'enum'">
-            <el-select
-              v-model="itemList.value"
-              placeholder="请选择"
-              style="width: 100%"
-              size="mini"
-            >
-              <el-option
-                v-for="items in ruleList"
-                :key="items.value"
-                :label="items.label"
-                :value="items.validator"
+          <div class="rule-title">{{ itemList.title }}</div>
+          <div class="rule-content">
+            <div class="collapse_enums" v-if="itemList.type == 'enum'">
+              <el-select
+                v-model="itemList.value"
+                placeholder="请选择"
+                style="width: 100%"
+                size="mini"
               >
-              </el-option>
-            </el-select>
+                <el-option
+                  v-for="items in ruleList"
+                  :key="items.value"
+                  :label="items.label"
+                  :value="items.validator"
+                >
+                </el-option>
+              </el-select>
+            </div>
+            <div v-if="itemList.type == 'func'">
+              <el-button
+                type="default"
+                @click="handleFuncEdit(itemList)"
+                size="mini"
+                >函数编辑</el-button
+              >
+            </div>
+            <div v-if="itemList.type == 'high'">
+              <el-button
+                type="default"
+                @click="handleFormEdit(itemList)"
+                size="mini"
+                >规则表单编辑</el-button
+              >
+            </div>
+            <el-icon
+              @click="deleteRule(index)"
+              style="margin-left: 10px"
+              :size="14"
+              ><Delete
+            /></el-icon>
           </div>
-          <div v-if="itemList.type == 'func'">
-            <el-button
-              type="primary"
-              @click="handleFuncEdit(itemList)"
-              size="mini"
-              >函数编辑</el-button
-            >
-          </div>
-          <div v-if="itemList.type == 'high'">
-            <el-button
-              type="primary"
-              @click="handleFormEdit(itemList)"
-              size="mini"
-              >规则表单编辑</el-button
-            >
-          </div>
-          <el-icon @click="deleteRule(index)" style="margin-left: 10px" :size="14"><Delete /></el-icon>
-        </el-collapse-item>
-      </el-collapse>
+        </div>
+      </div>
     </div>
     <CustomDialog ref="codeMyDialog">
       <div
@@ -131,7 +139,9 @@
               ref="formdragger"
               :formResult="formValue"
               :allFormList="ruleJson"
-              :globalConfig="Object.assign({}, globalDatas, { size: 'default' })"
+              :globalConfig="
+                Object.assign({}, globalDatas, { size: 'default' })
+              "
             ></Dynamicform>
           </el-main>
           <el-footer class="my-Footer" style="height: 60px; text-align: right">
@@ -355,8 +365,37 @@ export default defineComponent({
   .label {
     align-self: flex-start;
   }
+  .rule-container {
+    display: flex;
+    flex-direction: column;
+    .rule-item {
+      width: 344px;
+      height: 76px;
+      border: 1px solid #123b64;
+      padding: 8px 16px;
+      box-sizing: border-box;
+      .rule-title {
+        font-size: 14px;
+        height: 20px;
+        line-height: 20px;
+        margin-bottom: 8px;
+      }
+      .rule-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        .el-select.el-select--mini {
+          width: 284px !important;
+        }
+      }
+    }
+    .rule-item:not(:first-child) {
+      border-top: none;
+    }
+  }
 }
 .cm-gutters.cm-gutters-before {
-  background: #133F63;
+  background: #133f63;
 }
 </style>

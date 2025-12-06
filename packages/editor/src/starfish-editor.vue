@@ -159,6 +159,9 @@ export default defineComponent({
           return window.VApp.$Flex.jsonToForm(json);
         });
         formStore.updateAllFormList(newJson);
+        if (jsonList.length == 0) {
+          formStore?.setFormCurrentId("");
+        }
         formStore?.set("save", true);
       },
     };

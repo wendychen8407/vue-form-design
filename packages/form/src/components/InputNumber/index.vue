@@ -12,8 +12,8 @@
       :class="'label_' + labelalign"
       :style="{ width: labelWidth + 'px' }"
     >
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{ suffix }}</label>
-      <span v-if="item.data.required" class="item_require">*</span>
       <el-tooltip
         v-if="item.data.tip"
         class="item"
@@ -30,7 +30,7 @@
     >
       <el-input-number
         v-model="item.data.default"
-        width="240px"
+        style="width: 320px;"
         :controls-position="item.data.type == 2 ? 'right' : ''"
         :size="size"
         :precision="item.data.precision"
@@ -38,10 +38,10 @@
         v-if="drag"
       />
       <!-- 只读展示文字 -->
-      <span v-if="!drag && item.data.state === 'readonly'">{{ formatReadonlyNumber(data[item.data.fieldName], item.data.precision) }}</span>
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">{{ formatReadonlyNumber(data[item.data.fieldName], item.data.precision) }}</span>
       <el-input-number
         v-model="data[item.data.fieldName]"
-        width="240px"
+        style="width: 320px;"
         v-else-if="!drag"
         :controls-position="item.data.type == 2 ? 'right' : ''"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"

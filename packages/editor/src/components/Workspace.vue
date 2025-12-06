@@ -9,6 +9,7 @@
         globalDatas.csslist?.join(' '),
       ]"
       :style="`--scale:${scale} `"
+      @click="handleCanvasClick"
     >
       <div
         class="draggable_container"
@@ -230,6 +231,28 @@ export default defineComponent({
       formStore?.setFormCurrentIndex(e.newIndex);
       store?.set("curList", allmainList.value);
     };
+      // 处理画布点击事件
+    const handleCanvasClick = (event: Event) => {
+      // 查找点击的元素是否在富文本编辑器内
+      const target = event.target as HTMLElement;
+      const richTextElement = target.closest('.starfish-formitem[data-control-type="RichText"]');
+      
+      if (richTextElement) {
+        // 找到对应的控件
+        const controlId = richTextElement.getAttribute('data-id');
+        if (controlId) {
+          const item = allmainList.value.find((el: any) => el.id === controlId);
+          if (item) {
+            formStore?.setFormCurrentId(item.id);
+            const index = allmainList.value.findIndex((el: any) => el.id === item.id);
+            if (index !== -1) {
+              formStore?.setFormCurrentIndex(index);
+              store?.set("curList", allmainList.value);
+            }
+          }
+        }
+      }
+    };
     const handlePaste = () => {
       pasteShow.value = false;
       paste();
@@ -267,6 +290,7 @@ export default defineComponent({
       canvasSize,
       dragDom,
       chooseClick,
+      handleCanvasClick,
       addControl,
       changePos,
       allmainList,

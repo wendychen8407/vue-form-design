@@ -30,6 +30,7 @@ class ShortCut {
     }
   }
   delete(list: AllFormItem[]) {
+    console.log('delete list', list);
     list.splice(state.form.currentIndex, 1);
     state.form.curControl = {};
     state.form.formUpdate = true;

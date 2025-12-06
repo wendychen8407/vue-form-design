@@ -1,8 +1,8 @@
 <template>
   <div class="starfish-formitem" :class="{ formCover: drag, 'starfish-vertical': labelalign != 'top', [item.data.csslist?.join(' ')]: !!item.data.csslist}">
     <div class="label" :class="'label_' + labelalign" :style="{width: labelWidth + 'px'}">
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{suffix}}</label>
-      <span v-if="item.data.required" class="item_require">*</span>
       <el-tooltip v-if="item.data.tip" class="item" effect="dark" :content="item.data.tip" placement="top">
         <span class="tip iconfontui icon-tishi"></span>
       </el-tooltip>
@@ -10,8 +10,8 @@
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
       <!-- 拖拽时的预览 -->
       <el-date-picker 
-        v-model="item.data.default" 
-        width="240px"
+        v-model="item.data.default"
+        style="width: 320px;"
         :type="getPickerType(item.data.format)" 
         :format="item.data.format" 
         :value-format="item.data.format" 
@@ -24,10 +24,10 @@
       
       <!-- 实际运行时的组件 -->
       <!-- 只读的时候就展示文字 -->
-      <span v-if="!drag && item.data.state === 'readonly'">{{ formatReadonlyDate(data[item.data.fieldName], item.data.format) }}</span>
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">{{ formatReadonlyDate(data[item.data.fieldName], item.data.format) }}</span>
       <el-date-picker 
         v-model="data[item.data.fieldName]" 
-        width="240px"
+        style="width: 320px;"
         :type="getPickerType(item.data.format)" 
         :format="item.data.format" 
         :value-format="item.data.format" 

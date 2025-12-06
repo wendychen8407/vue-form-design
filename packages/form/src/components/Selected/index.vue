@@ -12,8 +12,8 @@
       :class="'label_' + labelalign"
       :style="{ width: labelWidth + 'px' }"
     >
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{ suffix }}</label>
-      <span v-if="item.data.required" class="item_require">*</span>
       <el-tooltip
         v-if="item.data.tip"
         class="item"
@@ -30,7 +30,7 @@
     >
       <el-select
         v-model="item.data.itemConfig.value"
-        width="240px"
+        style="width: 320px;"
         :placeholder="item.data.placeholder"
         v-if="drag"
         :size="size"
@@ -43,10 +43,10 @@
           :value="items.value"
         />
       </el-select>
-      <span v-if="!drag && item.data.state === 'readonly'">{{ data[item.data.fieldName] || '--' }}</span>
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">{{ data[item.data.fieldName] || '--' }}</span>
       <el-select
         v-model="data[item.data.fieldName]"
-        width="240px"
+        style="width: 320px;"
         :placeholder="item.data.placeholder"
         v-else-if="!drag"
         :size="size"

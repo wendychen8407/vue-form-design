@@ -12,8 +12,8 @@
       :class="'label_' + labelalign"
       :style="{ width: labelWidth + 'px' }"
     >
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{ suffix }}</label>
-      <span v-if="item.data.required" class="item_require">*</span>
       <el-tooltip
         v-if="item.data.tip"
         class="item"

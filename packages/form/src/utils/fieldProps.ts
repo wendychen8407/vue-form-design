@@ -1,4 +1,4 @@
-import { PropType } from "vue";
+import { PropType, readonly } from "vue";
 
 interface FormConfig {
   [key: string]: any;
@@ -22,6 +22,10 @@ export default {
       return {}
     }
   },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
   labelalign: {
     type: String,
     default: 'top'
@@ -31,7 +35,7 @@ export default {
   },
   suffix: {
     type: String,
-    default: ':'
+    default: '：'
   },
   size: {
     type: String,

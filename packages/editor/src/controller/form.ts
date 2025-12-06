@@ -49,7 +49,7 @@ class Form {
   setFormCurrentId(id: string) {
     state.currentId = id;
     if (id) {
-      const result = this.getCurrentItem(id);
+      const result: any = this.getCurrentItem(id);
       state.curControl = result || {};
     } else {
       state.curControl = {};

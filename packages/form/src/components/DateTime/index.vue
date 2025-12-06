@@ -1,15 +1,16 @@
 <template>
   <div class="starfish-formitem" :class="{ formCover: drag, 'starfish-vertical': labelalign != 'top', [item.data.csslist?.join(' ')]: !!item.data.csslist}">
     <div class="label" :class="'label_' + labelalign" :style="{width: labelWidth + 'px'}">
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{suffix}}</label>
-      <span v-if="item.data.required" class="item_require">*</span>
       <el-tooltip v-if="item.data.tip" class="item" effect="dark" :content="item.data.tip" placement="top">
         <span class="tip iconfontui icon-tishi"></span>
       </el-tooltip>
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
       <el-date-picker v-model="item.data.default" type="datetime" :placeholder="item.data.placeholder" v-if="drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'"> </el-date-picker>
-      <el-date-picker v-model="data[item.data.fieldName]" type="datetime" :placeholder="item.data.placeholder" v-if="!drag" :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'"> </el-date-picker>
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">{{ formatReadonlyDate(data[item.data.fieldName], item.data.format) }}</span>
+      <el-date-picker v-model="data[item.data.fieldName]" type="datetime" :placeholder="item.data.placeholder" v-else-if="!drag"  :size="size" :disabled="item.data.state === 'disabled'" :readonly="item.data.state === 'readonly'"> </el-date-picker>
     </div>
   </div>
 </template>
@@ -34,6 +35,42 @@
     },
     setup(props) {
       useWatch(props);
+      // 格式化只读日期显示
+      const formatReadonlyDate = (dateValue: any, format: string) => {
+        if (!dateValue) return '--';
+        
+        // 如果已经是格式化好的字符串，直接返回
+        if (typeof dateValue === 'string') {
+          return dateValue;
+        }
+        
+        // 如果是日期对象，进行格式化
+        if (dateValue instanceof Date) {
+          const year = dateValue.getFullYear();
+          const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+          const day = String(dateValue.getDate()).padStart(2, '0');
+          const hours = String(dateValue.getHours()).padStart(2, '0');
+          const minutes = String(dateValue.getMinutes()).padStart(2, '0');
+          const seconds = String(dateValue.getSeconds()).padStart(2, '0');
+          
+          const formatMap: Record<string, string> = {
+            'YYYY': `${year}`,
+            'YYYY-MM': `${year}-${month}`,
+            'YYYY-MM-DD': `${year}-${month}-${day}`,
+            'YYYY-MM-DD HH': `${year}-${month}-${day} ${hours}`,
+            'YYYY-MM-DD HH:mm': `${year}-${month}-${day} ${hours}:${minutes}`,
+            'YYYY-MM-DD HH:mm:ss': `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+          };
+          
+          return formatMap[format] || `${year}-${month}-${day}`;
+        }
+        
+        // 其他情况返回原始值
+        return String(dateValue);
+      };
+      return {
+        formatReadonlyDate
+      };
     },
   });
 </script>

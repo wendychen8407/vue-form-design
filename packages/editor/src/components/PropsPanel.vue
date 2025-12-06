@@ -44,7 +44,7 @@
           </el-form>
           <el-empty
             :image-size="100"
-            :image="emptyImg"
+            :image="themeStr.includes('saucePurple') ? lightEmptyImg : emptyImg"
             v-if="!curControl || !curControl.data"
             description="没有选中表单控件"
           ></el-empty>
@@ -91,6 +91,8 @@ import {
   toRaw,
   ComputedRef,
   defineAsyncComponent,
+  onMounted,
+  onUnmounted
 } from "vue";
 import ControllEditSize from "@/layouts/ControlEditSize.vue";
 import { globalFormList } from "@/common/formJson";
@@ -128,6 +130,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { proxy } = getCurrentInstance() as any;
     const emptyImg = new URL('../assets/images/empty.png', import.meta.url).href
+    const lightEmptyImg = new URL('../assets/images/lightEmpty.png', import.meta.url).href
     const { uiControl, hisContrl, formStore } =
       inject<Controls>("control") || {};
     // 该模块是否隐藏 默认显示
@@ -147,6 +150,25 @@ export default defineComponent({
     const historyFlag = computed(() => hisContrl?.get("historyFlag"));
     const save = computed(() => formStore?.get("save"));
     const currentIndex = computed(() => formStore?.get("currentIndex"));
+    const themeStr = ref(document.documentElement.classList[0] || '')
+    const updateTheme = () => (themeStr.value = document.documentElement.classList[0] || '')
+
+    let _themeObserver: MutationObserver | null = null
+    onMounted(() => {
+      _themeObserver = new MutationObserver(mutations => {
+        for (const m of mutations) {
+          if (m.type === 'attributes' && (m.attributeName === 'class' || m.attributeName === 'className')) {
+            updateTheme()
+            break
+          }
+        }
+      })
+      _themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    })
+    onUnmounted(() => {
+      _themeObserver?.disconnect()
+      _themeObserver = null
+    })
     const handleEditBtn = () => {
       moduleIsHidden.value = !moduleIsHidden.value;
       if (moduleIsHidden.value) {
@@ -359,6 +381,8 @@ export default defineComponent({
 
     return {
       emptyImg,
+      lightEmptyImg,
+      themeStr,
       globalFormLists,
       globalDatas,
       jsonCenter,

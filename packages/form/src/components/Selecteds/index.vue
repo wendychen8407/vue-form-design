@@ -12,8 +12,8 @@
       :class="'label_' + labelalign"
       :style="{ width: labelWidth + 'px' }"
     >
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{ suffix }}</label>
-      <span v-if="item.data.required" class="item_require">*</span>
       <el-tooltip
         v-if="item.data.tip"
         class="item"
@@ -30,7 +30,7 @@
     >
       <el-select
         v-model="item.data.itemConfig.value"
-        width="240px"
+        style="width: 320px;"
         :placeholder="item.data.placeholder"
         v-if="drag"
         multiple
@@ -44,12 +44,14 @@
           :value="items.value"
         />
       </el-select>
-      <span v-if="!drag && item.data.state === 'readonly'">{{ data[item.data.fieldName].join(',') || '--' }}</span>
+      <span v-else-if="!drag && (item.data.state === 'readonly' || readonly)">
+        {{ getReadonlyDisplayValue() }}
+      </span>
       <el-select
+        v-else
         v-model="data[item.data.fieldName]"
-        width="240px"
+        style="width: 320px;"
         :placeholder="item.data.placeholder"
-        v-else-if="!drag"
         multiple
         :size="size"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
@@ -66,6 +68,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import {
   defineComponent,
@@ -77,7 +80,7 @@ import fieldProps from "../../utils/fieldProps";
 import { useWatch } from "../../utils/customHooks";
 export default defineComponent({
   ControlType: "Selecteds", // 必须与文件名匹配
-  nameCn: "选择器多选",
+  nameCn: "多选择器",
   icon: "icon-xuanzeqi",
   formConfig: getFormConfig("Selecteds", [
     { fieldName: "placeholder", component: "Text" },
@@ -91,6 +94,28 @@ export default defineComponent({
   setup(props) {
     const vm = getCurrentInstance() as ComponentInternalInstance;
     useWatch(props);
+    
+    const getReadonlyDisplayValue = () => {
+      try {
+        // 优先使用 data 中的值
+        const fieldValue = props.data[props.item.data.fieldName];
+        if (Array.isArray(fieldValue)) {
+          return fieldValue.length > 0 ? fieldValue.join(',') : '--';
+        }
+        
+        // 如果 data 中没有值，使用 itemConfig 中的默认值
+        const configValue = props.item.data.itemConfig?.value;
+        if (Array.isArray(configValue)) {
+          return configValue.length > 0 ? configValue.join(',') : '--';
+        }
+        
+        return '--';
+      } catch (error) {
+        console.error('Error getting readonly display value:', error);
+        return '--';
+      }
+    };
+
     return {
       execFunc(type: string) {
         if (props.item.data.action && props.item.data.action[type]) {
@@ -99,6 +124,7 @@ export default defineComponent({
           ]);
         }
       },
+      getReadonlyDisplayValue
     };
   },
 });

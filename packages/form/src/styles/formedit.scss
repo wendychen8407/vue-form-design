@@ -8,11 +8,12 @@
     .el-input.el-input--default.el-input--suffix,
     .el-select.el-select--default,
     .el-input-number.el-input-number--default,
-    .el-input.el-input--default.el-date-editor.el-date-editor--date {
-      width: 240px;
+    .el-input.el-input--default.el-date-editor.el-date-editor--date,
+    .el-textarea.el-input--default {
+      width: 320px;
     }
     .el-input__wrapper {
-      width: 220px;
+      width: 298px;
     }
   }
   .el-form-item {
@@ -29,6 +30,7 @@
     display: none;
   }
   .starfish-formitem {
+    display: flex;
     text-align: left;
     position: relative;
     margin: 0 12px;
@@ -61,15 +63,21 @@
         .el-select.el-select--default,
         .el-input-number.el-input-number--default,
         .el-input.el-input--default.el-date-editor.el-date-editor--date {
-          width: 200px;
+          width: 320px;
         }
         .el-input__wrapper {
-          width: 200px;
+          width: 300px;
         }
       }
     }
     &.formCover {
       padding-bottom: 12px;
+      .el-input__wrapper {
+        width: 298px;
+      }
+      .el-textarea.el-input--default {
+        width: 320px;
+      }
     }
     .label {
       font-size: 14px;
