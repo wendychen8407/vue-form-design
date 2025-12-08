@@ -1,6 +1,6 @@
 {
   "name": "starfish-form-custom",
-  "version": "1.0.37",
+  "version": "1.0.39",
   "main": "dist/starfish-form.mjs",
   "style": "dist/style.css",
   "module": "dist/starfish-form.mjs",
@@ -23,6 +23,7 @@
     "@element-plus/icons-vue": "^2.0.8",
     "@tiptap/extension-blockquote": "^3.10.7",
     "@tiptap/extension-code": "^3.10.7",
+    "@tiptap/extension-code-block": "^3.13.0",
     "@tiptap/extension-code-block-lowlight": "^3.10.7",
     "@tiptap/extension-horizontal-rule": "^3.10.7",
     "@tiptap/extension-underline": "^3.10.7",

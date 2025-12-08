@@ -185,7 +185,12 @@ export default defineComponent({
   padding-left: 24px;
   margin: 12px 0;
 }
-
+:deep(.ProseMirror ul){
+  list-style: disc;
+}
+:deep(.ProseMirror ol){
+  list-style: decimal;
+}
 :deep(.ProseMirror li) {
   margin: 4px 0;
 }

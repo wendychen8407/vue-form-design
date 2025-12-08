@@ -7,7 +7,7 @@
     <button 
       class="menu-item" 
       :class="{ 'is-active': isActive && isActive() }" 
-      @click="action"
+      @click.stop="action"
     >
       <i :class="`ri-${icon}`" class="menu-icon"></i>
     </button>
