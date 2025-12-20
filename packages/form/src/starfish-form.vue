@@ -202,7 +202,6 @@ export default defineComponent({
 
     const handleControlChange = () => {
       const allFormLists: any = props.allFormList;
-      console.log('---handleControlChange--', allFormLists);
       allFormLists.forEach((item: any) => {
         if (item.data.showRule === "{}") {
           item.show = true;

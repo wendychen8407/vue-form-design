@@ -31,8 +31,8 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="enum">默认枚举</el-dropdown-item>
-            <el-dropdown-item command="func">自定义函数规则</el-dropdown-item>
-            <el-dropdown-item command="high">高级模式</el-dropdown-item>
+            <!-- <el-dropdown-item command="func">自定义函数规则</el-dropdown-item>
+            <el-dropdown-item command="high">高级模式</el-dropdown-item> -->
           </el-dropdown-menu>
         </template>
       </el-dropdown>

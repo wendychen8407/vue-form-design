@@ -24,7 +24,7 @@ class ShortCut {
       if(pasteControl.data){
         pasteControl.data.fieldName = pasteControl.ControlType + "_" + window.VueContext.$Flex.generateMixed();
         pasteControl.id = window.VueContext.$Flex.generateMixed();
-        list.push(pasteControl);
+        list.splice(state.form.currentIndex, 0, pasteControl);
         state.form.formUpdate = true;
       }
     }
