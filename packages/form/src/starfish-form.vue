@@ -136,7 +136,7 @@ export default defineComponent({
     function getRules(item: any) {
       if (!item.layout) {
         let rule: any[] = [];
-        if (item.data.required) {
+        if (item.data.required && !props.search) {
           rule.push({
             required: true,
             message: "请输入" + item.data.label,
@@ -146,7 +146,7 @@ export default defineComponent({
         // 新增 minLength 校验
         if (
           typeof item.data.minLength === "number" &&
-          item.data.minLength > 0
+          item.data.minLength > 0 && !props.search
         ) {
           rule.push({
             validator: (rule: any, value: any, callback: any) => {
