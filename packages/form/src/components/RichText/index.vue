@@ -7,7 +7,7 @@
     <div class="label" :class="'label_' + labelalign" :style="{width: labelWidth + 'px'}">
       <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
       <label>{{ item.data.label }}{{suffix}}</label>
-      <el-tooltip v-if="item.data.tip" class="item" effect="dark" :content="item.data.tip" placement="top">
+      <el-tooltip v-if="item.data.tip && !readonly" class="item" effect="dark" :content="item.data.tip" placement="top">
         <span class="tip iconfontui icon-tishi"></span>
       </el-tooltip>
     </div>

@@ -12,10 +12,10 @@
       :class="'label_' + labelalign"
       :style="{ width: labelWidth + 'px' }"
     >
-      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
+      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly' && !search" class="item_require">*</span>
       <label>{{ item.data.label }}{{ suffix }}</label>
       <el-tooltip
-        v-if="item.data.tip"
+        v-if="item.data.tip && !readonly && !search"
         class="item"
         effect="dark"
         :content="item.data.tip"

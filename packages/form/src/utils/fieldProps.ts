@@ -1,4 +1,4 @@
-import { PropType, readonly } from "vue";
+import { PropType } from "vue";
 
 interface FormConfig {
   [key: string]: any;
@@ -23,6 +23,10 @@ export default {
     }
   },
   readonly: {
+    type: Boolean,
+    default: false,
+  },
+  search: {
     type: Boolean,
     default: false,
   },

@@ -22,6 +22,7 @@
             :is="item.ControlType"
             v-bind="globalConfig"
             :readonly="readonly"
+            :search="search"
             :item="item"
             :data="formResult || '{}'"
             :drag="false"
@@ -36,6 +37,7 @@
             :key="item.id"
             v-bind="globalConfig"
             :readonly="readonly"
+            :search="search"
             :item="item"
             :data="formResult || '{}'"
             :drag="false"
@@ -80,6 +82,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    search: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props: any, { emit }) {
     const { proxy } = getCurrentInstance() as any;
