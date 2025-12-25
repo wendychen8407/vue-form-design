@@ -23,9 +23,14 @@ const validateNumberD2 = `(rule, value, callback) => {
 // 电话号码校验规则
 const validatePhone = `(rule, value, callback) => {
     if (value === "" || value == null) {
-      callback(new Error("请输入"));
-    } else if (!/^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/.test(value)) {
-      callback(new Error("请输入正确的电话号码"));
+      callback(new Error("请输入电话号码"));
+      return;
+    }
+    var re = /^1[3,4,5,6,7,8,9][0-9]{9}$/;
+    
+    if (!re.test(value)) {
+      callback(new Error("请输入正确的11位手机号码"));
+      return;
     }
     callback();
   }`;
@@ -34,7 +39,7 @@ const validatePhone = `(rule, value, callback) => {
 const validateIdCard = `(rule, value, callback) => {
     if (value === "" || value == null) {
       callback(new Error("请输入"));
-    } else if (!/^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
+    } else if (!/^[1-9]\\d{5}(18|19|20)\\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$/.test(value)) {
       callback(new Error("请输入正确的身份证号"));
     }
     callback();
