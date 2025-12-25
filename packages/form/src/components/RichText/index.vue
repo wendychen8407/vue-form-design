@@ -12,25 +12,14 @@
       </el-tooltip>
     </div>
     <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
-      <div class="rich-text-editor" v-if="drag" @click.stop>
+      <div class="rich-text-editor" @click.stop>
         <QuillEditor 
           ref="quillEditorRef"
           theme="snow" 
           :content="content" 
           @update:content="handleContentChange"
           toolbar="full" 
-          :read-only="true" 
-          class="editor-content" 
-        />
-      </div>
-      <div class="rich-text-editor" v-if="!drag" @click.stop>
-        <QuillEditor 
-          ref="quillEditorRef"
-          theme="snow" 
-          :content="content" 
-          @update:content="handleContentChange"
-          toolbar="full" 
-          :read-only="isReadonly" 
+          :read-only="isReadonly || drag" 
           class="editor-content" 
         />
       </div>
