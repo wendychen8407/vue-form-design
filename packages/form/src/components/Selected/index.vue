@@ -33,6 +33,7 @@
         style="width: 320px;"
         :placeholder="item.data.placeholder"
         v-if="drag"
+        clearable
         :size="size"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
       >
@@ -43,13 +44,17 @@
           :value="items.value"
         />
       </el-select>
-      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">{{ data[item.data.fieldName] || '--' }}</span>
+      <!-- 只读状态显示对应的 label -->
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">
+        {{ getDisplayText() }}
+      </span>
       <el-select
         v-model="data[item.data.fieldName]"
         style="width: 320px;"
         :placeholder="item.data.placeholder"
         v-else-if="!drag"
         :size="size"
+        clearable
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
         @focus="execFunc('onFocus')"
         @blur="execFunc('onBlur')"
@@ -64,6 +69,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import {
   defineComponent,
@@ -73,6 +79,7 @@ import {
 import { getFormConfig } from "../../utils/fieldConfig";
 import fieldProps from "../../utils/fieldProps";
 import { useWatch } from "../../utils/customHooks";
+
 export default defineComponent({
   ControlType: "Selected", // 必须与文件名匹配
   nameCn: "选择器",
@@ -99,5 +106,22 @@ export default defineComponent({
       },
     };
   },
+  methods: {
+    getDisplayText() {
+      const fieldValue = this.data[this.item.data.fieldName];
+      const items = this.item.data.itemConfig?.items || [];
+      
+      // 如果没有值，显示默认的 "--"
+      if (fieldValue === undefined || fieldValue === null || fieldValue === '') {
+        return this.item.data.placeholder || '--';
+      }
+      
+      // 查找对应的 label
+      const selectedItem = items.find(item => item.value === fieldValue);
+      
+      // 如果找到对应的 label，显示 label，否则显示原始值
+      return selectedItem ? selectedItem.label : fieldValue;
+    }
+  }
 });
 </script>

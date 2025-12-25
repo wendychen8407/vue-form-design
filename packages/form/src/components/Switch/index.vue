@@ -28,26 +28,32 @@
       class="control"
       :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
     >
+      <!-- 只读状态显示是或否 -->
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">
+        {{ getDisplayText() }}
+      </span>
       <el-switch
+        v-else-if="drag"
         v-model="item.data.default"
-        v-if="drag"
         :size="size"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
       />
       <el-switch
+        v-else
         v-model="data[item.data.fieldName]"
-        v-if="!drag"
         :size="size"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
       />
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getFormConfig } from "../../utils/fieldConfig";
 import fieldProps from "../../utils/fieldProps";
 import { useWatch } from "../../utils/customHooks";
+
 export default defineComponent({
   ControlType: "Switch", // 必须与文件名匹配
   nameCn: "开关",
@@ -63,5 +69,18 @@ export default defineComponent({
   setup(props) {
     useWatch(props);
   },
+  methods: {
+    getDisplayText() {
+      const fieldValue = this.data[this.item.data.fieldName];
+      
+      // 如果没有值，显示默认的 "--"
+      if (fieldValue === undefined || fieldValue === null) {
+        return '--';
+      }
+      
+      // 根据布尔值返回是或否
+      return fieldValue ? '是' : '否';
+    }
+  }
 });
 </script>

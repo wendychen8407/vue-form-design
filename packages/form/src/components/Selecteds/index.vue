@@ -44,8 +44,9 @@
           :value="items.value"
         />
       </el-select>
+      <!-- 只读状态显示对应的 label -->
       <span v-else-if="!drag && (item.data.state === 'readonly' || readonly)">
-        {{ getReadonlyDisplayValue() }}
+        {{ getDisplayText() }}
       </span>
       <el-select
         v-else
@@ -78,6 +79,7 @@ import {
 import { getFormConfig } from "../../utils/fieldConfig";
 import fieldProps from "../../utils/fieldProps";
 import { useWatch } from "../../utils/customHooks";
+
 export default defineComponent({
   ControlType: "Selecteds", // 必须与文件名匹配
   nameCn: "多选择器",
@@ -95,27 +97,6 @@ export default defineComponent({
     const vm = getCurrentInstance() as ComponentInternalInstance;
     useWatch(props);
     
-    const getReadonlyDisplayValue = () => {
-      try {
-        // 优先使用 data 中的值
-        const fieldValue = props.data[props.item.data.fieldName];
-        if (Array.isArray(fieldValue)) {
-          return fieldValue.length > 0 ? fieldValue.join(',') : '--';
-        }
-        
-        // 如果 data 中没有值，使用 itemConfig 中的默认值
-        const configValue = props.item.data.itemConfig?.value;
-        if (Array.isArray(configValue)) {
-          return configValue.length > 0 ? configValue.join(',') : '--';
-        }
-        
-        return '--';
-      } catch (error) {
-        console.error('Error getting readonly display value:', error);
-        return '--';
-      }
-    };
-
     return {
       execFunc(type: string) {
         if (props.item.data.action && props.item.data.action[type]) {
@@ -124,8 +105,27 @@ export default defineComponent({
           ]);
         }
       },
-      getReadonlyDisplayValue
     };
   },
+  methods: {
+    getDisplayText() {
+      const fieldValue = this.data[this.item.data.fieldName];
+      const items = this.item.data.itemConfig?.items || [];
+      
+      // 如果没有值，显示默认的 "--"
+      if (!fieldValue || !Array.isArray(fieldValue) || fieldValue.length === 0) {
+        return this.item.data.placeholder || '--';
+      }
+      
+      // 根据选中的 value 数组查找对应的 label
+      const selectedLabels = fieldValue.map(value => {
+        const item = items.find(item => item.value === value);
+        return item ? item.label : value;
+      });
+      
+      // 返回用逗号分隔的 label 字符串
+      return selectedLabels.join(', ');
+    }
+  }
 });
 </script>

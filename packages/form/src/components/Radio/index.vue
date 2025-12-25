@@ -1,11 +1,3 @@
-<!--
- * @Author: chenwen chenwen@jiton.com
- * @Date: 2025-07-25 15:26:40
- * @LastEditors: chenwen chenwen@jiton.com
- * @LastEditTime: 2025-12-24 16:07:50
- * @FilePath: \vue-form-design\packages\form\src\components\Radio\index.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
   <div
     class="starfish-formitem"
@@ -37,7 +29,10 @@
       class="control"
       :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
     >
-      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">{{ data[item.data.fieldName] || '--' }}</span>
+      <!-- 只读状态显示对应的 label -->
+      <span v-if="!drag && (item.data.state === 'readonly' || readonly)">
+        {{ getDisplayText() }}
+      </span>
       <el-radio-group
         v-else-if="!drag"
         v-model="data[item.data.fieldName]"
@@ -90,5 +85,22 @@ export default defineComponent({
   setup(props) {
     useWatch(props);
   },
+  methods: {
+    getDisplayText() {
+      const fieldValue = this.data[this.item.data.fieldName];
+      const items = this.item.data.itemConfig?.items || [];
+      
+      // 如果没有值，显示默认的 "--"
+      if (fieldValue === undefined || fieldValue === null || fieldValue === '') {
+        return '--';
+      }
+      
+      // 查找对应的 label
+      const selectedItem = items.find(item => item.value === fieldValue);
+      
+      // 如果找到对应的 label，显示 label，否则显示原始值
+      return selectedItem ? selectedItem.label : fieldValue;
+    }
+  }
 });
 </script>
