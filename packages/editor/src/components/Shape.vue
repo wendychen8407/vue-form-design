@@ -39,9 +39,9 @@
         @click.stop="handleActive('bottom')"
       ></span>
       <span
-        class="iconfontui icon--charulie"
+        class="iconfontui icon--charuhang"
         v-if="item && item.ControlType == 'TableLayout'"
-        @click="handleRow"
+        @click="handleColumn"
       ></span>
       <span class="iconfontui icon-fuzhi" @click.stop="handleCopyAndPaste"></span>
       <span
