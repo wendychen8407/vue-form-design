@@ -43,11 +43,6 @@
         v-if="item && item.ControlType == 'TableLayout'"
         @click="handleRow"
       ></span>
-      <span
-        class="iconfontui icon--charuhang"
-        v-if="item && item.ControlType == 'TableLayout'"
-        @click="handleColumn"
-      ></span>
       <span class="iconfontui icon-fuzhi" @click.stop="handleCopyAndPaste"></span>
       <span
         class="iconfontui icon-shanchu1"
