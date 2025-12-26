@@ -1,26 +1,48 @@
 <template>
-  <div class="starfish-formitem" 
-    :class="{ formCover: drag, 'starfish-vertical': labelalign != 'top', [item.data.csslist?.join(' ')]: !!item.data.csslist}" 
+  <div
+    class="starfish-formitem"
+    :class="{
+      formCover: drag,
+      'starfish-vertical': labelalign != 'top',
+      [item.data.csslist?.join(' ')]: !!item.data.csslist,
+    }"
     :data-control-type="item.ControlType"
     :data-id="item.id"
+  >
+    <div
+      class="label"
+      :class="'label_' + labelalign"
+      :style="{ width: labelWidth + 'px' }"
     >
-    <div class="label" :class="'label_' + labelalign" :style="{width: labelWidth + 'px'}">
-      <span v-if="item.data.required && !readonly && item.data.state !== 'readonly'" class="item_require">*</span>
-      <label>{{ item.data.label }}{{suffix}}</label>
-      <el-tooltip v-if="item.data.tip && !readonly" class="item" effect="dark" :content="item.data.tip" placement="top">
+      <span
+        v-if="item.data.required && !readonly && item.data.state !== 'readonly'"
+        class="item_require"
+        >*</span
+      >
+      <label>{{ item.data.label }}{{ suffix }}</label>
+      <el-tooltip
+        v-if="item.data.tip && !readonly"
+        class="item"
+        effect="dark"
+        :content="item.data.tip"
+        placement="top"
+      >
         <span class="tip iconfontui icon-tishi"></span>
       </el-tooltip>
     </div>
-    <div class="control" :style="{marginLeft: labelalign != 'top'?labelWidth + 'px': ''}">
+    <div
+      class="control"
+      :style="{ marginLeft: labelalign != 'top' ? labelWidth + 'px' : '' }"
+    >
       <div class="rich-text-editor" @click.stop>
-        <QuillEditor 
+        <QuillEditor
           ref="quillEditorRef"
-          theme="snow" 
-          :content="content" 
+          theme="snow"
+          v-model:content="content"
           @update:content="handleContentChange"
-          toolbar="full" 
-          :read-only="isReadonly || drag" 
-          class="editor-content" 
+          :toolbar="toolbarOptions"
+          :read-only="isReadonly || drag"
+          class="editor-content"
         />
       </div>
     </div>
@@ -29,8 +51,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from "vue";
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { getFormConfig } from "../../utils/fieldConfig";
 import fieldProps from "../../utils/fieldProps";
 import { useWatch } from "../../utils/customHooks";
@@ -39,42 +61,69 @@ export default defineComponent({
   ControlType: "RichText",
   nameCn: "富文本",
   icon: "icon-textEdit",
-  formConfig: getFormConfig("RichText", [{ fieldName: "state", component: "Radio" }]),
+  formConfig: getFormConfig("RichText", [
+    { fieldName: "state", component: "Radio" },
+  ]),
   props: {
     ...fieldProps,
   },
   components: {
-    QuillEditor
+    QuillEditor,
   },
   setup(props) {
     useWatch(props);
     const quillEditorRef = ref();
-    const content = ref(props.data[props.item.data.fieldName] || props.item.data.default || '');
-    
-    // 计算只读状态
-    const isReadonly = computed(() => 
-      props.readonly || props.item.data.state === 'readonly'
+    const content = ref(
+      props.data[props.item.data.fieldName] || props.item.data.default || ""
     );
-    
+    const toolbarOptions = [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote", "code-block"],
+      ["link", "image", "formula"],
+
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+      [{ script: "sub" }, { script: "super" }], // superscript/subscript
+      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+      [{ direction: "rtl" }], // text direction
+
+      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+
+      ["clean"], // remove formatting button
+    ];
+    // 计算只读状态
+    const isReadonly = computed(
+      () => props.readonly || props.item.data.state === "readonly"
+    );
+
     // 处理内容变化
     const handleContentChange = (value: string) => {
       content.value = value;
       // 更新父组件数据
       props.data[props.item.data.fieldName] = value;
     };
-    
+
     // 监听外部数据变化
-    watch(() => props.data[props.item.data.fieldName], (newValue) => {
-      if (newValue !== content.value) {
-        content.value = newValue || '';
+    watch(
+      () => props.data[props.item.data.fieldName],
+      (newValue) => {
+        if (newValue !== content.value) {
+          content.value = newValue || "";
+        }
       }
-    });
-    
+    );
+
     return {
       content,
       quillEditorRef,
       handleContentChange,
-      isReadonly
+      toolbarOptions,
+      isReadonly,
     };
   },
 });
@@ -90,7 +139,7 @@ export default defineComponent({
 // 确保编辑器层级
 :deep(.editor-content) {
   min-height: 200px;
-  
+
   // 确保工具栏正常显示
   .ql-toolbar {
     z-index: 100;
@@ -100,7 +149,7 @@ export default defineComponent({
     border-top-right-radius: 4px;
     position: relative;
   }
-  
+
   .ql-container {
     border: 1px solid #ccc;
     border-top: none;
