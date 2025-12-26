@@ -29,6 +29,58 @@ class ShortCut {
       }
 
       if (pasteControl.data) {
+        // 如果是布局控件，给其中的基础控件也设置新的fieldName 和 id
+        if (pasteControl.layout) {
+          // 栅格布局
+          if (pasteControl.ControlType === "Grid") {
+            pasteControl.data.columns.forEach((column: any, colIndex: number) => {
+              if (column.list.length > 0) {
+                column.list.forEach((item: any, listIndex: number) => {
+                  if (item.ControlType === "Date") {
+                    this.handleDateComponentCopy(
+                      item,
+                      state.copyContent.data.columns[colIndex].list[listIndex]
+                    );
+                  }
+                  // 生成新的 fieldName 和 id
+                  if (item.data) {
+                    item.data.fieldName =
+                      item.ControlType +
+                      "_" +
+                      window.VueContext.$Flex.generateMixed();
+                    item.id = window.VueContext.$Flex.generateMixed();
+                  }
+                });
+              }
+            });
+          }// 表格布局
+          else if (pasteControl.ControlType === "TableLayout") {
+            // 遍历表格的所有行
+            pasteControl.data.trs.forEach((tr: any, trIndex: number) => {
+              // 遍历行的所有单元格
+              tr.tds.forEach((td: any, tdIndex: number) => {
+                // 遍历单元格中的所有控件
+                td.list.forEach((item: any, itemIndex: number) => {
+                  if (item.ControlType === "Date") {
+                    // 处理 Date 组件的复制
+                    this.handleDateComponentCopy(
+                      item,
+                      state.copyContent.data.trs[trIndex]?.tds[tdIndex]?.list[itemIndex]
+                    );
+                  }
+                  // 生成新的 fieldName 和 id
+                  if (item.data) {
+                    item.data.fieldName =
+                      item.ControlType +
+                      "_" +
+                      window.VueContext.$Flex.generateMixed();
+                    item.id = window.VueContext.$Flex.generateMixed();
+                  }
+                });
+              });
+            });
+          }
+        }
         // 生成新的 fieldName 和 id
         pasteControl.data.fieldName =
           pasteControl.ControlType +
