@@ -43,6 +43,7 @@
           v-for="(sitem, sindex) in item.data.itemConfig.items"
           :key="sindex"
           :label="sitem.value"
+          :value="sitem.value"
           :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
           >{{ sitem.label }}</el-radio
         >
@@ -57,6 +58,7 @@
           v-for="(sitem, sindex) in item.data.itemConfig.items"
           :key="sindex"
           :label="sitem.value"
+          :value="sitem.value"
           :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
           >{{ sitem.label }}</el-radio
         >

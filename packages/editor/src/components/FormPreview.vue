@@ -20,23 +20,8 @@
         ref="dynamicform"
       />
     </div>
-    <el-footer class="my-Footer" style="text-align: center">
-      <el-button type="primary" @click="resetForm">重置表单</el-button>
-      <el-button type="primary" @click="getData">获取数据</el-button>
-      <el-button @click="closeDialog">关闭</el-button>
-    </el-footer>
     <custom-dialog ref="codeDialog" dialogclass="codeDialog" width="1000">
       <div class="custom_code">
-        <!-- <codemirror
-          v-model="code"
-          placeholder="Code goes here..."
-          mode="text/json"
-          :style="{ height: '400px' }"
-          :extensions="extensions"
-          :autofocus="true"
-          :indent-with-tab="true"
-          :tab-size="2"
-        /> -->
         <JsonCode v-model:value="code" />
       </div>
       <el-footer
