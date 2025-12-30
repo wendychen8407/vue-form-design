@@ -131,12 +131,14 @@ export default defineComponent({
 
       // 处理字符串类型的 HTML
       if (typeof rawValue === "string" && rawValue.trim()) {
-        // 如果内容不同才更新
-        if (currentHtml.value !== rawValue) {
-          // 使用 dangerouslyPasteHTML 设置 HTML 内容
-          quill.clipboard.dangerouslyPasteHTML(0, rawValue);
+        // 处理转义字符
+        const cleanHtml = rawValue.replace(/\\"/g, '"').replace(/\\'/g, "'");
+
+        if (currentHtml.value !== cleanHtml) {
+          quill.setContents([]);
+          quill.clipboard.dangerouslyPasteHTML(0, cleanHtml);
           content.value = quill.getContents();
-          currentHtml.value = rawValue;
+          currentHtml.value = cleanHtml;
         }
         return;
       }
@@ -151,7 +153,7 @@ export default defineComponent({
 
       // 获取最新的 HTML
       const newHtml = quill.root.innerHTML;
-      
+
       // 只有当 HTML 真正发生变化时才更新父组件
       if (newHtml !== currentHtml.value) {
         const fieldName = props.item.data.fieldName;
@@ -172,7 +174,7 @@ export default defineComponent({
 
         // 获取当前编辑器的 HTML
         const currentEditorHtml = quill.root.innerHTML || "";
-        
+
         // 处理新值
         let newHtml = "";
         if (newValue === undefined || newValue === null || newValue === "") {
