@@ -117,12 +117,13 @@ export default defineComponent({
       const rawValue = props.data[fieldName];
       const defaultValue = props.item.data.default || "";
 
-      // 获取当前 HTML（初始化时应该是空）
-      currentHtml.value = quill.root.innerHTML || "";
+      // 获取当前 HTML
+      const currentEditorHtml = quill.root.innerHTML || "";
 
       // 处理空值
       if (rawValue === undefined || rawValue === null || rawValue === "") {
-        if (defaultValue) {
+        if (defaultValue && currentEditorHtml !== defaultValue) {
+          quill.setContents([]);
           quill.clipboard.dangerouslyPasteHTML(0, defaultValue);
           content.value = quill.getContents();
         }
@@ -134,11 +135,17 @@ export default defineComponent({
         // 处理转义字符
         const cleanHtml = rawValue.replace(/\\"/g, '"').replace(/\\'/g, "'");
 
-        if (currentHtml.value !== cleanHtml) {
-          quill.setContents([]);
-          quill.clipboard.dangerouslyPasteHTML(0, cleanHtml);
+        // 只有当编辑器内容与新内容不同时才更新
+        if (currentEditorHtml !== cleanHtml) {
+          // 如果编辑器是空的（只有<p><br></p>），直接插入
+          if (currentEditorHtml === "<p><br></p>" || currentEditorHtml === "") {
+            quill.clipboard.dangerouslyPasteHTML(0, cleanHtml);
+          } else {
+            // 否则先清空再插入
+            quill.setContents([]);
+            quill.clipboard.dangerouslyPasteHTML(0, cleanHtml);
+          }
           content.value = quill.getContents();
-          currentHtml.value = cleanHtml;
         }
         return;
       }
