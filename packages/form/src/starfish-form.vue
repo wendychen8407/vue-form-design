@@ -15,7 +15,7 @@
           :prop="item.data.fieldName"
           v-if="!item.layout && item.show"
           :key="item.id"
-          :required="item.data.required"
+          :required="item.data.required && !search"
         >
           <component
             ref="controlObj"
