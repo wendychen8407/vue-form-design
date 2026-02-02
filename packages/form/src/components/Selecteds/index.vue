@@ -34,6 +34,7 @@
         :placeholder="item.data.placeholder"
         v-if="drag"
         multiple
+        collapse-tags
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
         :size="size"
       >
@@ -54,6 +55,7 @@
         style="width: 320px;"
         :placeholder="item.data.placeholder"
         multiple
+        collapse-tags
         :size="size"
         :disabled="item.data.state === 'disabled' || item.data.state === 'readonly'"
         @focus="execFunc('onFocus')"
