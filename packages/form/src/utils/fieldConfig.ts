@@ -466,6 +466,7 @@ const fieldsMap: any = {
     required: false,
     rule: "[]",
     default: "",
+    format: "YYYY-MM-DD", // 日期格式
     state: "normal",
   },
   ColorSelect: {
@@ -697,6 +698,7 @@ function getMoren(
         showRule: "{}",
         required: false,
         rule: "[]",
+        format: "YYYY-MM-DD",
         itemConfig: {
           value: "YYYY-MM-DD",
           items: [
