@@ -560,7 +560,7 @@ function getMoren(
       data: {
         fieldName: "placeholder",
         tip: "",
-        label: "输入占位文字",
+        label: "占位文字",
         placeholder: "请输入占位文字",
         showRule: "{}",
         required: false,
@@ -953,7 +953,7 @@ function getMoren(
       data: {
         fieldName,
         tip: "",
-        label: label ? label : "输入占位文字",
+        label: label ? label : "占位文字",
         placeholder: "请输入占位文字",
         showRule: "{}",
         required: false,
