@@ -34,10 +34,10 @@
             <el-icon :size="12" style="color: #fff"><SemiSelect /></el-icon>
           </div>
           <div class="top" @click="handleTop(index)">
-            <el-icon :size="12"><Top /></el-icon>
+            <el-icon :size="12" style="color: #fff"><Top /></el-icon>
           </div>
           <div class="bottom" @click="handleBottom(index)">
-            <el-icon :size="12"><Bottom /></el-icon>
+            <el-icon :size="12" style="color: #fff"><Bottom /></el-icon>
           </div>
         </div>
       </div>
