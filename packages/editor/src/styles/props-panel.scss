@@ -22,8 +22,52 @@
 
       .dynamic {
         padding-top: 1px;
-        .el-form-item__content {
-          margin-bottom: 16px;
+        // 添加新的样式
+        .el-form {
+          .el-form-item {
+            margin-bottom: 16px;
+
+            .el-form-item__content {
+              width: 100%;
+
+              // 让所有组件的label宽度统一
+              .starfish-formitem {
+                display: flex;
+                align-items: flex-start; // 顶部对齐
+
+                .label {
+                  width: 100px !important; // 统一宽度，可以根据需要调整
+                  flex-shrink: 0;
+                  display: flex;
+                  justify-content: flex-end; // 右对齐
+                  padding-right: 8px;
+                  height: 32px;
+                  line-height: 32px;
+
+                  label {
+                    text-align: right;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+                }
+
+                .control {
+                  flex: 1;
+                  margin-left: 0 !important;
+                  min-width: 0;
+
+                  // 组件样式
+                  .el-input,
+                  .el-select,
+                  .el-date-editor,
+                  .el-input-number {
+                    width: 100%;
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
