@@ -13,7 +13,7 @@
       :style="{ width: labelWidth + 'px' }"
     >
       <span v-if="item.data.required && !readonly && item.data.state !== 'readonly' && !search" class="item_require">*</span>
-      <el-tooltip :disabled="item.data.label.length <= 6" :content="item.data.label + suffix" placement="top">
+      <el-tooltip :disabled="item.data.label.length < 6" :content="item.data.label + suffix" placement="top">
         <label>{{ item.data.label }}{{ suffix }}</label>
       </el-tooltip>
       <el-tooltip
